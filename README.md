@@ -1,12 +1,12 @@
 # DY_study
 
+Warnning: Currently, the macro doesn't work because there is no ntuple in here. Please set about ntuple.
+
 ## exmacro
 
 This is example macros for simple dimuon event selection.
 
 Usage:
-> git clone https://github.com/DalminPai/DY_study.git
->
 > cd DY_study/exmacro
 >
 > root -l -b -q 'MuMu.C++((debug), (type))'
@@ -14,4 +14,25 @@ Usage:
 > * (type)  : You can choose 1 to 7 for Data, and some other numbers for MC. For defult setting, please see L38-54 in 'MuM.C'.
 > * ex) root -l -b -q 'MuMu.C++(0, 1)'
 
-Warnning: Currently, the macro doesn't work because there is no ntuple in here. Please set about ntuple.
+## EventSelection
+
+This is macros for event selection.
+
+Usage:
+> cd DY_study/EventSelection/SCRIPT
+> source setup.sh
+> ./EventSelection.sh Macro.C -h
+
+## BkgEst
+
+This is macros for background estimation.
+
+Usage:
+> cd DY_study/BkgEst/EMuMethod
+>
+> # -- Check e-mu distributions -- #
+> root -l -b -q 'emuCheck.cc'
+>
+> # -- Estimate non QCD background -- #
+> root -l -b -q 'estimateBkg.cc'
+
