@@ -4,8 +4,7 @@ Warnning: Currently, the macro doesn't work because there is no ntuple in here. 
 
 ## exmacro
 This is example macros for simple dimuon event selection.<br>
-Usage:
-
+Usage:<br>
 	cd DY_study/exmacro
 	root -l -b -q 'MuMu.C++((debug), (type))'
 	* (debug) : You can choose 0 or 1. If you choose 1, then code will be run using only small number of events.
