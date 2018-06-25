@@ -1,0 +1,11 @@
+ERROR in cling::CIFactory::createCI(): cannot extract standard library include paths!
+Invoking:
+    echo | LC_ALL=C g++ -D__ROOFIT_NOBANNER  -pipe -m64 -Wall -W -Woverloaded-virtual -fsigned-char -fPIC -pthread -std=c++11 -Wno-deprecated-declarations -Wno-comment -Wno-unused-parameter -Wno-maybe-uninitialized -Wno-unused-but-set-variable -Wno-missing-field-initializers  -fPIC -fvisibility-inlines-hidden -std=c++11 -ffunction-sections -fdata-sections -fno-common -Woverloaded-virtual -Wcast-qual -fno-strict-aliasing -pedantic -Wno-long-long -Wall -W -Wno-unused-parameter -Wwrite-strings -Wno-unused-local-typedefs -O2 -DNDEBUG -xc++ -E -v - 2>&1 >/dev/null | awk '/^#include </,/^End of search/{if (!/^#include </ && !/^End of search/){ print }}' | grep -E "(c|g)\+\+"
+results in
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/gcc/5.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/5.3.0/../../../../include/c++/5.3.0
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/gcc/5.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/5.3.0/../../../../include/c++/5.3.0/x86_64-pc-linux-gnu
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/gcc/5.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/5.3.0/../../../../include/c++/5.3.0/backward
+with exit code 0
+
+Processing PileUp.C("G", "20180320_60mb")...
+Job is finished.
