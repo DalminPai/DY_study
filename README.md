@@ -30,10 +30,3 @@ Usage:
 	source setup.sh
 	./EventSelection.sh MY_MACRO.C -h
 
-## BkgEst
-This is macros for background estimation.<br>
-Usage:
-
-	cd DY_study/BkgEst/EMuMethod
-	root -l -b -q 'emuCheck.cc' # -- Check e-mu distributions -- #
-	root -l -b -q 'estimateBkg.cc' # -- Estimate not fake background -- #
