@@ -3,7 +3,7 @@ DY analysis with 2016 dataset<br>
 Warning: Macros have to be used with a proper ntuple. Please check setup of the ntuple first.<br>
 Warning: Usage may be outdated. It should be updated later.
 
-	git clone https://DalminPai@github.com/DalminPai/DY_study.git
+	git clone -b v20190207_to_be_tidied https://DalminPai@github.com/DalminPai/DY_study.git
 
 ## exmacro
 This is example macros for simple dimuon event selection.<br>
