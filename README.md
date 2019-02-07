@@ -2,6 +2,8 @@
 DY analysis with 2016 dataset<br>
 Warnning: Currently, the macro doesn't work because there is no ntuple in here. Please set about ntuple.
 
+	git clone https://DalminPai@github.com/DalminPai/DY_study.git
+
 ## exmacro
 This is example macros for simple dimuon event selection.<br>
 Usage:
