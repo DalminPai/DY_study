@@ -1,7 +1,6 @@
 # DY_study
 DY analysis with 2016 dataset<br>
-Warning: Macros have to be used with a proper ntuple. Please check setup of the ntuple first.<br>
-Warning: Usage may be outdated. It should be updated later.
+Warning: Macros have to be used with a proper ntuple. Please check setup of the ntuple first.
 
 	git clone https://DalminPai@github.com/DalminPai/DY_study.git
 
