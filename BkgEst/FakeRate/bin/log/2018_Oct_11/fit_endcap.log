@@ -1,0 +1,139 @@
+
+Processing my_fitTemplates.cc("endcap", 1)...
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_data): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_QCD): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WJets): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_DYJets): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ttbar): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_tW): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WW): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WZ): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ZZ): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (pdf_QCD,pdf_WJets,pdf_DYJets,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+ **********
+ **   13 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-4.6619e+08 FROM MIGRAD    STATUS=INITIATE       30 CALLS          31 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     3.47914e+06   3.47914e+04   2.01358e-01  -2.44388e+04
+   2  n_QCD        1.27608e+07   1.27608e+06   2.01358e-01   9.49215e+05
+   3  n_WJets      9.24549e+06   9.24549e+05   2.01358e-01  -6.61453e+05
+   4  n_WW         6.29299e+04   6.29299e+02   2.01358e-01  -4.23710e+02
+   5  n_WZ         2.22205e+04   2.22205e+02   2.01358e-01  -1.48859e+02
+   6  n_ZZ         7.32990e+03   7.32990e+01   2.01358e-01  -4.90668e+01
+   7  n_tW         2.51708e+04   2.51708e+02   2.01358e-01  -1.49808e+02
+   8  n_ttbar      5.60961e+05   5.60961e+03   2.01358e-01  -3.03356e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-4.66546e+08 FROM MIGRAD    STATUS=CONVERGED     452 CALLS         453 TOTAL
+                     EDM=9.51965e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.8 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     3.30519e+06   3.12576e+02   1.00097e-03** at limit **
+   2  n_QCD        1.03467e+07   3.57307e+03  -9.95007e-06  -8.61327e+00
+   3  n_WJets      1.18078e+07   3.49843e+03  -4.91480e-06   2.60284e+00
+   4  n_WW         5.97834e+04   1.14994e+03  -6.52401e-03  -2.91789e-03
+   5  n_WZ         2.11095e+04   1.43663e+03   2.61674e-03   8.82447e-04
+   6  n_ZZ         6.96341e+03   5.97378e+02  -1.61177e-02  -2.12127e-03
+   7  n_tW         2.64293e+04   1.63131e+03  -2.50858e-02  -9.42457e-03
+   8  n_ttbar      5.89009e+05   1.46755e+02  -7.38779e-04** at limit **
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  5.142e-01 -1.904e+02  3.787e+02 -1.123e+00  6.836e-02 -2.852e-01  5.727e-01 -8.607e-02 
+ -1.904e+02  1.277e+07 -1.694e+06  8.552e+02  7.619e+00  4.457e+02 -5.350e+03 -1.075e+01 
+  3.787e+02 -1.694e+06  1.224e+07 -1.458e+03  4.209e+01  1.205e+03  8.796e+03 -6.441e+01 
+ -1.123e+00  8.552e+02 -1.458e+03  4.786e+01 -4.378e-01  3.122e+00 -1.301e+01 -6.559e-01 
+  6.836e-02  7.619e+00  4.209e+01 -4.378e-01  1.838e+00  1.018e-01  7.214e-01  6.242e-02 
+ -2.852e-01  4.457e+02  1.205e+03  3.122e+00  1.018e-01  1.923e+01 -8.886e+00 -3.674e-02 
+  5.727e-01 -5.350e+03  8.796e+03 -1.301e+01  7.214e-01 -8.886e+00  2.208e+02 -1.942e-01 
+ -8.607e-02 -1.075e+01 -6.441e+01 -6.559e-01  6.242e-02 -3.674e-02 -1.942e-01  8.798e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.32457   1.000 -0.074  0.151 -0.226  0.070 -0.091  0.054 -0.128
+        2  0.16759  -0.074  1.000 -0.136  0.035  0.002  0.028 -0.101 -0.003
+        3  0.27310   0.151 -0.136  1.000 -0.060  0.009  0.079  0.169 -0.020
+        4  0.29448  -0.226  0.035 -0.060  1.000 -0.047  0.103 -0.127 -0.101
+        5  0.10487   0.070  0.002  0.009 -0.047  1.000  0.017  0.036  0.049
+        6  0.21372  -0.091  0.028  0.079  0.103  0.017  1.000 -0.136 -0.009
+        7  0.26126   0.054 -0.101  0.169 -0.127  0.036 -0.136  1.000 -0.014
+        8  0.19513  -0.128 -0.003 -0.020 -0.101  0.049 -0.009 -0.014  1.000
+ **********
+ **   18 **HESSE        4000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-4.66546e+08 FROM HESSE     STATUS=OK             67 CALLS         520 TOTAL
+                     EDM=0.0457724    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  n_DYJets     3.30519e+06   2.88443e+03   5.00000e-01   1.09956e+01
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   2  n_QCD        1.03467e+07   3.45824e+03   8.68152e-03  -3.88025e-01
+   3  n_WJets      1.18078e+07   8.78862e+03   1.60230e-02   5.87503e-01
+   4  n_WW         5.97834e+04   1.29249e+03   5.00000e-01   7.90108e+02
+   5  n_WZ         2.11095e+04   1.41048e+03   5.00000e-01   2.05303e+03
+   6  n_ZZ         6.96341e+03   5.81914e+02   5.00000e-01   6.62718e+03
+   7  n_tW         2.64293e+04   1.57611e+03   5.00000e-01   2.23837e+03
+   8  n_ttbar      5.89009e+05   1.59683e+02   5.00000e-01   3.92696e+01
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  4.757e+00 -3.886e+01 -1.673e+04 -9.321e-02 -6.849e-03 -1.112e-02  6.824e-02  1.062e-02 
+ -3.886e+01  1.196e+07 -1.319e+06 -4.902e+01 -4.053e+00 -1.699e+01  2.856e+02  8.211e+01 
+ -1.673e+04 -1.319e+06  7.724e+07 -4.864e+03 -3.544e+02 -5.736e+02  3.625e+03  5.937e+02 
+ -9.321e-02 -4.902e+01 -4.864e+03  5.428e+01 -1.996e-03 -3.220e-03  1.994e-02  3.068e-03 
+ -6.849e-03 -4.053e+00 -3.544e+02 -1.996e-03  1.674e+00 -2.422e-04  1.410e-03  2.018e-04 
+ -1.112e-02 -1.699e+01 -5.736e+02 -3.220e-03 -2.422e-04  1.745e+01  2.371e-03  3.249e-04 
+  6.824e-02  2.856e+02  3.625e+03  1.994e-02  1.410e-03  2.371e-03  1.843e+02 -2.904e-03 
+  1.062e-02  8.211e+01  5.937e+02  3.068e-03  2.018e-04  3.249e-04 -2.904e-03  9.574e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.88065   1.000 -0.005 -0.873 -0.006 -0.002 -0.001  0.002  0.005
+        2  0.10897  -0.005  1.000 -0.043 -0.002 -0.001 -0.001  0.006  0.024
+        3  0.88250  -0.873 -0.043  1.000 -0.075 -0.031 -0.016  0.030  0.069
+        4  0.16847  -0.006 -0.002 -0.075  1.000 -0.000 -0.000  0.000  0.000
+        5  0.07082  -0.002 -0.001 -0.031 -0.000  1.000 -0.000  0.000  0.000
+        6  0.03567  -0.001 -0.001 -0.016 -0.000 -0.000  1.000  0.000  0.000
+        7  0.06974   0.002  0.006  0.030  0.000  0.000  0.000  1.000 -0.000
+        8  0.15862   0.005  0.024  0.069  0.000  0.000  0.000 -0.000  1.000
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets,pdf_WJets,pdf_QCD)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets,pdf_WJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+
+  RooFitResult: minimized FCN value: -4.66546e+08, estimated distance to minimum: 0.0457724
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MIGRAD=0 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+              n_DYJets    3.3052e+06 +/-  2.88e+03
+                 n_QCD    1.0347e+07 +/-  3.46e+03
+               n_WJets    1.1808e+07 +/-  8.79e+03
+                  n_WW    5.9783e+04 +/-  1.29e+03
+                  n_WZ    2.1109e+04 +/-  1.41e+03
+                  n_ZZ    6.9634e+03 +/-  5.82e+02
+                  n_tW    2.6429e+04 +/-  1.58e+03
+               n_ttbar    5.8901e+05 +/-  1.60e+02
+
+[#1] INFO:InputArguments -- RooAbsReal::createHistogram(model) INFO: Model has intrinsic binning definition, selecting that binning for the histogram
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+chi2: 40458.8
+Normalized chi2: 80.9176
+35.9 fb^{-1} (13 TeV)
+Info in <TCanvas::Print>: pdf file ../bin/print/fit_endcap.pdf has been created
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+Info in <TCanvas::Print>: pdf file ../bin/print/ratio_endcap.pdf has been created

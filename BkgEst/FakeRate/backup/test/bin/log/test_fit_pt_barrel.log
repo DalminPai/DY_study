@@ -1,0 +1,417 @@
+
+Processing my_fitTemplates.cc("pt_barrel")...
+denominator_pt_barrel_Data
+denominator_pt_barrel_QCDMuEnriched_Pt15to20
+denominator_pt_barrel_WJetsToLNu
+denominator_pt_barrel_DY_M10to50_v1
+denominator_pt_barrel_ttbar
+denominator_pt_barrel_tW
+denominator_pt_barrel_WW
+denominator_pt_barrel_WZ
+denominator_pt_barrel_ZZ
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_Data): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_QCD): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WJets): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_DY): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ttbar): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_tW): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WW): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WZ): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ZZ): fit range of variable obs expanded to nearest bin boundaries: [52,60] --> [52,60]
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (pdf_QCD,pdf_WJets,pdf_DY,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+ **********
+ **   13 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-2.45556e+08 FROM MIGRAD    STATUS=INITIATE       30 CALLS          31 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DY         4.46438e+06   4.46438e+04   2.01358e-01   1.20946e+05
+   2  n_QCD        2.49273e+07   2.49273e+05   2.01358e-01   7.01342e+05
+   3  n_WJets      1.16662e+07   1.16662e+05   2.01358e-01   3.26427e+05
+   4  n_WW         8.87278e+04   8.87278e+02   2.01358e-01   2.39666e+03
+   5  n_WZ         3.25541e+04   3.25541e+02   2.01358e-01   8.79330e+02
+   6  n_ZZ         1.04873e+04   1.04873e+02   2.01358e-01   2.83276e+02
+   7  n_tW         6.40823e+04   6.40823e+02   2.01358e-01   1.73095e+03
+   8  n_ttbar      1.36251e+06   1.36251e+04   2.01358e-01   3.68031e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.46733e+08 FROM MIGRAD    STATUS=CONVERGED     520 CALLS         521 TOTAL
+                     EDM=7.85159e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DY         4.24116e+06   9.25259e-01   3.12306e-02** at limit **
+   2  n_QCD        2.36809e+07   9.25198e-01   1.32162e-02** at limit **
+   3  n_WJets      1.10829e+07   9.25213e-01   1.93190e-02** at limit **
+   4  n_WW         8.42914e+04   9.28960e-01   2.21975e-01** at limit **
+   5  n_WZ         3.09264e+04   9.35594e-01   3.67782e-01** at limit **
+   6  n_ZZ         9.96293e+03   9.44419e-01   5.00000e-01** at limit **
+   7  n_tW         6.08782e+04   9.30426e-01   2.61403e-01** at limit **
+   8  n_ttbar      1.29438e+06   9.25429e-01   5.65368e-02** at limit **
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  6.649e-08 -1.048e-13 -1.631e-13 -1.973e-13 -3.509e-13 -2.516e-14 -4.495e-14 -1.594e-13 
+ -1.048e-13  1.262e-07 -2.247e-13 -2.720e-13 -4.835e-13 -3.467e-14 -6.196e-14 -2.196e-13 
+ -1.631e-13 -2.247e-13  3.057e-07 -4.235e-13 -7.530e-13 -5.394e-14 -9.646e-14 -3.419e-13 
+ -1.973e-13 -2.720e-13 -4.235e-13  4.476e-07 -9.108e-13 -6.528e-14 -1.167e-13 -4.139e-13 
+ -3.509e-13 -4.835e-13 -7.530e-13 -9.108e-13  1.417e-06 -1.161e-13 -2.076e-13 -7.359e-13 
+ -2.516e-14 -3.467e-14 -5.394e-14 -6.528e-14 -1.161e-13  1.233e-08 -1.487e-14 -5.274e-14 
+ -4.495e-14 -6.196e-14 -9.646e-14 -1.167e-13 -2.076e-13 -1.487e-14  2.326e-08 -9.427e-14 
+ -1.594e-13 -2.196e-13 -3.419e-13 -4.139e-13 -7.359e-13 -5.274e-14 -9.427e-14  2.922e-07 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.00000   1.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        2  0.00000  -0.000  1.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        3  0.00000  -0.000 -0.000  1.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        4  0.00000  -0.000 -0.000 -0.000  1.000 -0.000 -0.000 -0.000 -0.000
+        5  0.00000  -0.000 -0.000 -0.000 -0.000  1.000 -0.000 -0.000 -0.000
+        6  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000  1.000 -0.000 -0.000
+        7  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000 -0.000  1.000 -0.000
+        8  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000  1.000
+ **********
+ **   18 **HESSE        4000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.46733e+08 FROM HESSE     STATUS=OK             61 CALLS         582 TOTAL
+                     EDM=7.80763e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  n_DY         4.24116e+06   9.25188e-01   6.24611e-03  -1.10113e+03
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   2  n_QCD        2.36809e+07   9.25186e-01   2.64325e-03  -1.90066e+02
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   3  n_WJets      1.10829e+07   9.25186e-01   3.86379e-03  -4.09978e+02
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   4  n_WW         8.42914e+04   9.25305e-01   4.43951e-02  -5.58151e+04
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   5  n_WZ         3.09264e+04   9.25515e-01   7.35564e-02  -1.51816e+05
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   6  n_ZZ         9.96293e+03   9.25878e-01   1.11873e-01  -4.69230e+05
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   7  n_tW         6.08782e+04   9.25352e-01   5.22806e-02  -7.71151e+04
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+   8  n_ttbar      1.29438e+06   9.25193e-01   1.13074e-02  -3.62069e+03
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  6.648e-08 -4.641e-15 -7.222e-15 -8.705e-15 -1.154e-14 -1.655e-15 -1.486e-15 -7.059e-15 
+ -4.641e-15  1.262e-07 -1.244e-14 -1.200e-14 -2.650e-14 -2.281e-15 -2.730e-15 -9.728e-15 
+ -7.222e-15 -1.244e-14  3.057e-07 -2.333e-14 -4.123e-14 -3.549e-15 -5.311e-15 -1.514e-14 
+ -8.705e-15 -1.200e-14 -2.333e-14  4.458e-07 -4.970e-14 -4.278e-15 -5.121e-15 -1.825e-14 
+ -1.154e-14 -2.650e-14 -4.123e-14 -4.970e-14  1.402e-06 -7.560e-15 -9.050e-15 -3.225e-14 
+ -1.655e-15 -2.281e-15 -3.549e-15 -4.278e-15 -7.560e-15  1.209e-08 -9.736e-16 -3.469e-15 
+ -1.486e-15 -2.730e-15 -5.311e-15 -5.121e-15 -9.050e-15 -9.736e-16  2.313e-08 -4.153e-15 
+ -7.059e-15 -9.728e-15 -1.514e-14 -1.825e-14 -3.225e-14 -3.469e-15 -4.153e-15  2.921e-07 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.00000   1.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        2  0.00000  -0.000  1.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        3  0.00000  -0.000 -0.000  1.000 -0.000 -0.000 -0.000 -0.000 -0.000
+        4  0.00000  -0.000 -0.000 -0.000  1.000 -0.000 -0.000 -0.000 -0.000
+        5  0.00000  -0.000 -0.000 -0.000 -0.000  1.000 -0.000 -0.000 -0.000
+        6  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000  1.000 -0.000 -0.000
+        7  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000 -0.000  1.000 -0.000
+        8  0.00000  -0.000 -0.000 -0.000 -0.000 -0.000 -0.000 -0.000  1.000
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_QCD,pdf_WJets,pdf_DY,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WJets,pdf_DY,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_DY,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WW,pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WZ,pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+[#0] WARNING:Plotting -- At observable [x]=60 RooHistPdf::pdf_ZZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WZ[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_DY[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_ttbar[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_WJets[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_tW[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+RooHistPdf::pdf_QCD[ pdfObs=(obs) ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ pdfObs=(obs = 60)
+
+  RooFitResult: minimized FCN value: -2.46733e+08, estimated distance to minimum: 7.80763e-07
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MIGRAD=0 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+                  n_DY    4.2412e+06 +/-  9.25e-01
+                 n_QCD    2.3681e+07 +/-  9.25e-01
+               n_WJets    1.1083e+07 +/-  9.25e-01
+                  n_WW    8.4291e+04 +/-  9.25e-01
+                  n_WZ    3.0926e+04 +/-  9.26e-01
+                  n_ZZ    9.9629e+03 +/-  9.26e-01
+                  n_tW    6.0878e+04 +/-  9.25e-01
+               n_ttbar    1.2944e+06 +/-  9.25e-01
+
+[#1] INFO:InputArguments -- RooAbsReal::createHistogram(model) INFO: Model has intrinsic binning definition, selecting that binning for the histogram
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+Error in <TH1D::Divide>: Cannot divide histograms with different number of bins
+chi2: 0
+Normalized chi2: 0
+Error in <THistPainter::PaintInit>: Cannot set Y axis to log scale
+Error in <THistPainter::PaintInit>: Cannot set Y axis to log scale
+Info in <TCanvas::Print>: pdf file print/fit_pt_barrel.pdf has been created

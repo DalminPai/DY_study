@@ -1,0 +1,97 @@
+
+Processing my_fit_wjets.cc()...
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ttbar): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_DYJets): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WJets): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_QCD): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_data): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#0] WARNING:InputArguments -- RooAbsPdf::fitTo(model) WARNING: a likelihood fit is request of what appears to be weighted data. 
+       While the estimated values of the parameters will always be calculated taking the weights into account, 
+       there are multiple ways to estimate the errors on these parameter values. You are advised to make an 
+       explicit choice on the error calculation: 
+           - Either provide SumW2Error(kTRUE), to calculate a sum-of-weights corrected HESSE error matrix 
+             (error will be proportional to the number of events)
+           - Or provide SumW2Error(kFALSE), to return errors from original HESSE error matrix
+             (which will be proportional to the sum of the weights)
+       If you want the errors to reflect the information contained in the provided dataset, choose kTRUE. 
+       If you want the errors to reflect the precision you would be able to obtain with an unweighted dataset 
+       with 'sum-of-weights' events, choose kFALSE.
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (pdf_WJets,pdf_QCD,pdf_DYJets,pdf_ttbar)
+ **********
+ **   13 **MIGRAD        2000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-2.15048e+06 FROM MIGRAD    STATUS=INITIATE       14 CALLS          15 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     2.35271e+05   4.70541e+03   2.01358e-01  -5.61809e+01
+   2  n_QCD        2.61302e+04   1.56781e+03   2.01358e-01   1.52113e+02
+   3  n_WJets      3.18467e+01   1.91080e+00   2.01358e-01  -1.23075e+00
+   4  n_ttbar      1.67616e+04   3.35233e+02   2.01358e-01   5.79578e+00
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.15053e+06 FROM MIGRAD    STATUS=CONVERGED     197 CALLS         198 TOTAL
+                     EDM=0.000133273    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     2.37280e+05   5.52817e+02   2.21373e-02  -1.01429e-01
+   2  n_QCD        2.22817e+04   3.30730e+02   4.47987e-02  -2.53902e-01
+   3  n_WJets      4.14006e+01   3.76840e+00   5.00000e-01  -1.60088e-03
+   4  n_ttbar      1.84378e+04   6.20391e+01   2.71577e-01** at limit **
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  4    ERR DEF=0.5
+  3.057e+05 -6.756e+04 -2.174e-03  3.286e-01 
+ -6.756e+04  1.095e+05  2.213e-02  1.328e+01 
+ -2.174e-03  2.213e-02  1.372e-04 -5.170e-06 
+  3.286e-01  1.328e+01 -5.170e-06  5.485e-02 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4
+        1  0.37536   1.000 -0.369 -0.000  0.003
+        2  0.40761  -0.369  1.000  0.006  0.171
+        3  0.00675  -0.000  0.006  1.000 -0.002
+        4  0.18547   0.003  0.171 -0.002  1.000
+ **********
+ **   18 **HESSE        2000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.15053e+06 FROM HESSE     STATUS=OK             23 CALLS         221 TOTAL
+                     EDM=0.000136343    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  n_DYJets     2.37280e+05   5.52115e+02   8.85491e-04   8.54995e-02
+   2  n_QCD        2.22817e+04   3.25357e+02   1.79195e-03  -5.13167e-01
+   3  n_WJets      4.14006e+01   3.70413e+00   1.00000e-01  -8.63951e+01
+   4  n_ttbar      1.84378e+04   6.24876e+01   1.08631e-02   1.57131e+00
+                                 WARNING -   - ABOVE PARAMETER IS AT LIMIT.
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  4    ERR DEF=0.5
+  3.049e+05 -6.696e+04 -3.573e-04  2.222e-02 
+ -6.696e+04  1.059e+05  4.523e-03  5.798e-01 
+ -3.573e-04  4.523e-03  1.347e-04 -4.483e-08 
+  2.222e-02  5.798e-01 -4.483e-08  5.524e-02 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4
+        1  0.37261   1.000 -0.373 -0.000  0.000
+        2  0.37268  -0.373  1.000  0.001  0.008
+        3  0.00127  -0.000  0.001  1.000 -0.000
+        4  0.00824   0.000  0.008 -0.000  1.000
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+
+  RooFitResult: minimized FCN value: -2.15053e+06, estimated distance to minimum: 0.000136343
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MIGRAD=0 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+              n_DYJets    2.3728e+05 +/-  5.52e+02
+                 n_QCD    2.2282e+04 +/-  3.25e+02
+               n_WJets    4.1401e+01 +/-  3.70e+00
+               n_ttbar    1.8438e+04 +/-  6.25e+01
+
+chi2ndof: 42.9794

@@ -1,0 +1,118 @@
+
+Processing my_fit_wjets.cc("ratio")...
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ttbar): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_DYJets): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WJets): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_QCD): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_data): fit range of variable mass expanded to nearest bin boundaries: [15,200] --> [15,200]
+[#0] WARNING:InputArguments -- RooAbsPdf::fitTo(model) WARNING: a likelihood fit is request of what appears to be weighted data. 
+       While the estimated values of the parameters will always be calculated taking the weights into account, 
+       there are multiple ways to estimate the errors on these parameter values. You are advised to make an 
+       explicit choice on the error calculation: 
+           - Either provide SumW2Error(kTRUE), to calculate a sum-of-weights corrected HESSE error matrix 
+             (error will be proportional to the number of events)
+           - Or provide SumW2Error(kFALSE), to return errors from original HESSE error matrix
+             (which will be proportional to the sum of the weights)
+       If you want the errors to reflect the information contained in the provided dataset, choose kTRUE. 
+       If you want the errors to reflect the precision you would be able to obtain with an unweighted dataset 
+       with 'sum-of-weights' events, choose kFALSE.
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (pdf_WJets,pdf_QCD,pdf_DYJets,pdf_ttbar)
+ **********
+ **   13 **MIGRAD        2000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-2.36256e+06 FROM MIGRAD    STATUS=INITIATE       14 CALLS          15 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     2.83593e+05   5.67186e+03   2.01358e-01  -6.29770e+00
+   2  n_QCD        6.71745e+03   4.03047e+02   2.01358e-01   1.39239e+00
+   3  n_WJets      1.08939e+03   6.53635e+01   2.01358e-01   6.20462e-01
+   4  n_ttbar      9.27452e+03   1.85490e+02   2.01358e-01   5.52872e+00
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-2.36257e+06 FROM MIGRAD    STATUS=CONVERGED     159 CALLS         160 TOTAL
+                     EDM=2.69333e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   3.6 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     2.83776e+05   5.84659e+02  -3.90351e-04  -8.79607e-02
+   2  n_QCD        7.26738e+03   3.06573e+02   3.71810e-03   2.20498e-02
+   3  n_WJets      1.31910e+03   1.11666e+02  -2.71254e-03   1.14471e-02
+   4  n_ttbar      8.34707e+03   9.04824e+01   5.65902e-03   9.45273e-03
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  4    ERR DEF=0.5
+  3.419e+05 -6.534e+04  1.770e+03 -2.020e+00 
+ -6.534e+04  9.478e+04 -1.421e+04  2.260e+01 
+  1.770e+03 -1.421e+04  1.357e+04 -2.826e+01 
+ -2.020e+00  2.260e+01 -2.826e+01  5.667e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4
+        1  0.38511   1.000 -0.363  0.026 -0.005
+        2  0.53137  -0.363  1.000 -0.396  0.098
+        3  0.50191   0.026 -0.396  1.000 -0.322
+        4  0.32416  -0.005  0.098 -0.322  1.000
+ **********
+ **   18 **HESSE        2000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.36257e+06 FROM HESSE     STATUS=OK             31 CALLS         191 TOTAL
+                     EDM=0.0518657    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  n_DYJets     2.83776e+05   5.84885e+02   2.03899e-02   6.45142e-03
+   2  n_QCD        7.26738e+03   3.21933e+02   1.41308e-01   2.76388e-01
+   3  n_WJets      1.31910e+03   1.67140e+02   5.00000e-01   7.79437e-01
+   4  n_ttbar      8.34707e+03   1.20782e+02   5.00000e-01  -1.56897e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  4    ERR DEF=0.5
+  3.421e+05 -6.032e+04  3.497e+03 -9.267e+00 
+ -6.032e+04  1.046e+05 -2.401e+04 -7.839e+01 
+  3.497e+03 -2.401e+04  3.479e+04 -1.861e+01 
+ -9.267e+00 -7.839e+01 -1.861e+01  7.608e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4
+        1  0.36413   1.000 -0.319  0.032 -0.018
+        2  0.60095  -0.319  1.000 -0.398 -0.278
+        3  0.47935   0.032 -0.398  1.000 -0.114
+        4  0.39626  -0.018 -0.278 -0.114  1.000
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+
+  RooFitResult: minimized FCN value: -2.36257e+06, estimated distance to minimum: 0.0518657
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MIGRAD=0 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+              n_DYJets    2.8378e+05 +/-  5.85e+02
+                 n_QCD    7.2674e+03 +/-  3.22e+02
+               n_WJets    1.3191e+03 +/-  1.67e+02
+               n_ttbar    8.3471e+03 +/-  1.21e+02
+
+chi2ndof: 152.189
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WJets,pdf_ttbar,pdf_QCD,pdf_DYJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WJets,pdf_ttbar,pdf_QCD)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WJets,pdf_ttbar)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_WJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+
+  RooFitResult: minimized FCN value: -2.36257e+06, estimated distance to minimum: 0.0518657
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MIGRAD=0 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+              n_DYJets    2.8378e+05 +/-  5.85e+02
+                 n_QCD    7.2674e+03 +/-  3.22e+02
+               n_WJets    1.3191e+03 +/-  1.67e+02
+               n_ttbar    8.3471e+03 +/-  1.21e+02
+
+[#1] INFO:InputArguments -- RooAbsReal::createHistogram(model) INFO: Model has intrinsic binning definition, selecting that binning for the histogram
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+35.9 fb^{-1} (13 TeV)
+Info in <TCanvas::Print>: pdf file ../bin/print/fit_wjets_ratio.pdf has been created

@@ -1,0 +1,170 @@
+
+Processing my_fitTemplates.cc("barrel", 1)...
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_data): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_QCD): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WJets): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_DYJets): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ttbar): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_tW): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WW): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_WZ): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:DataHandling -- RooDataHist::adjustBinning(RooHist_ZZ): fit range of variable obs expanded to nearest bin boundaries: [0,5] --> [0,5]
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinuit::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (pdf_QCD,pdf_WJets,pdf_DYJets,pdf_ttbar,pdf_tW,pdf_WW,pdf_WZ,pdf_ZZ)
+ **********
+ **   13 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-7.08013e+08 FROM MIGRAD    STATUS=INITIATE       32 CALLS          33 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     4.42561e+06   4.42561e+04   2.01358e-01  -3.77096e+04
+   2  n_QCD        2.42863e+07   2.42863e+06   2.01358e-01   1.49080e+06
+   3  n_WJets      1.15655e+07   1.15655e+06   2.01358e-01  -1.00155e+06
+   4  n_WW         8.79601e+04   8.79601e+02   2.01358e-01  -7.06516e+02
+   5  n_WZ         3.22717e+04   3.22717e+02   2.01358e-01  -2.57808e+02
+   6  n_ZZ         1.03937e+04   1.03937e+02   2.01358e-01  -8.08629e+01
+   7  n_tW         6.33684e+04   6.33684e+02   2.01358e-01  -4.48011e+02
+   8  n_ttbar      1.34710e+06   1.34710e+04   2.01358e-01  -8.63229e+03
+                               ERR DEF= 0.5
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MACHINE ACCURACY LIMITS FURTHER IMPROVEMENT.
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -4.5776e-01  9.1747e-01  9.7974e-01  9.9091e-01  9.9656e-01  9.9949e-01  1.0042e+00  2.5693e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.460328 TO DIAGONAL.
+ FCN=-7.08515e+08 FROM HESSE     STATUS=NOT POSDEF     65 CALLS         319 TOTAL
+                     EDM=0.148656    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     4.64475e+06   2.73212e+05   5.00000e-01  -3.39316e+00
+   2  n_QCD        2.08487e+07   4.08233e+03   7.46196e-03  -5.94827e+02
+   3  n_WJets      1.47217e+07   6.49306e+04   1.78192e-02   3.26326e+02
+   4  n_WW         8.35673e+04   2.05142e+02   5.00000e-01   4.46693e-01
+   5  n_WZ         3.06589e+04   1.54685e+02   5.00000e-01   1.20935e-01
+   6  n_ZZ         9.87554e+03   1.96283e+02   5.00000e-01  -6.72483e-02
+   7  n_tW         6.02000e+04   4.64620e+02   5.00000e-01  -1.38676e-02
+   8  n_ttbar      1.41445e+06   1.91740e+02   5.00000e-01   4.34516e-01
+                               ERR DEF= 0.5
+ MINUIT WARNING IN MIGRAD  
+ ============== Negative diagonal element 1 in Error Matrix
+ MINUIT WARNING IN MIGRAD  
+ ============== 1.0089 added to diagonal of error matrix
+ MIGRAD FAILS TO FIND IMPROVEMENT
+ MIGRAD TERMINATED WITHOUT CONVERGENCE.
+ FCN=-7.08515e+08 FROM MIGRAD    STATUS=FAILED        367 CALLS         368 TOTAL
+                     EDM=42679.7    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  n_DYJets     4.64434e+06   5.24540e+04  -0.00000e+00   3.80530e+01
+   2  n_QCD        2.08504e+07   3.26145e+06   0.00000e+00   1.78638e+02
+   3  n_WJets      1.47203e+07   2.93954e+06   0.00000e+00  -1.95519e+02
+   4  n_WW         8.35623e+04   1.21873e+03   0.00000e+00  -7.19259e-02
+   5  n_WZ         3.06581e+04   5.23435e+02   0.00000e+00  -1.30129e-02
+   6  n_ZZ         9.87434e+03   6.63873e+02  -0.00000e+00   2.90860e-02
+   7  n_tW         6.02005e+04   1.11172e+03  -0.00000e+00   4.79438e-02
+   8  n_ttbar      1.41445e+06   1.63698e+04   0.00000e+00  -1.11956e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  5.600e+08 -7.194e+09  1.294e+09 -2.123e+03 -2.290e+02  1.205e+03 -8.881e+02  9.174e+02 
+ -7.194e+09  1.093e+13  1.038e+13  1.226e+05  6.142e+03 -1.933e+04 -1.624e+04  3.189e+06 
+  1.294e+09  1.038e+13  9.976e+12 -2.515e+04 -1.506e+03  2.163e+03 -5.968e+03 -5.662e+05 
+ -2.123e+03  1.226e+05 -2.515e+04  7.817e+02  2.173e-01 -2.942e+00 -2.913e+00  3.347e+00 
+ -2.290e+02  6.142e+03 -1.506e+03  2.173e-01  2.373e+01 -2.922e-01 -3.124e-01  3.556e-01 
+  1.205e+03 -1.933e+04  2.163e+03 -2.942e+00 -2.922e-01  4.665e+02  1.953e+00 -2.387e+00 
+ -8.881e+02 -1.624e+04 -5.968e+03 -2.913e+00 -3.124e-01  1.953e+00  2.567e+03  4.177e-01 
+  9.174e+02  3.189e+06 -5.662e+05  3.347e+00  3.556e-01 -2.387e+00  4.177e-01  4.035e+04 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.99884   1.000 -0.092  0.017 -0.003 -0.002  0.002 -0.001  0.000
+        2  0.99999  -0.092  1.000  0.994  0.001  0.000 -0.000 -0.000  0.005
+        3  0.99999   0.017  0.994  1.000 -0.000 -0.000  0.000 -0.000 -0.001
+        4  0.23219  -0.003  0.001 -0.000  1.000  0.002 -0.005 -0.002  0.001
+        5  0.04910  -0.002  0.000 -0.000  0.002  1.000 -0.003 -0.001  0.000
+        6  0.00914   0.002 -0.000  0.000 -0.005 -0.003  1.000  0.002 -0.001
+        7  0.02641  -0.001 -0.000 -0.000 -0.002 -0.001  0.002  1.000  0.000
+        8  0.73562   0.000  0.005 -0.001  0.001  0.000 -0.001  0.000  1.000
+ ERR MATRIX NOT POS-DEF
+ **********
+ **   18 **HESSE        4000
+ **********
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -3.9111e-01  9.2109e-01  9.8104e-01  9.9021e-01  9.9719e-01  9.9873e-01  1.0040e+00  2.4988e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.393607 TO DIAGONAL.
+ FCN=-7.08515e+08 FROM HESSE     STATUS=NOT POSDEF     67 CALLS         435 TOTAL
+                     EDM=3.4701    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  n_DYJets     4.64434e+06   2.65289e+05   5.00000e-01   1.42890e+01
+   2  n_QCD        2.08504e+07   4.14361e+03   7.46198e-03  -2.86873e-01
+   3  n_WJets      1.47203e+07   6.59119e+04   1.78160e-02   5.77037e-01
+   4  n_WW         8.35623e+04   2.03295e+02   5.00000e-01   7.27270e+02
+   5  n_WZ         3.06581e+04   1.63385e+02   5.00000e-01   1.59435e+03
+   6  n_ZZ         9.87434e+03   2.16910e+02   5.00000e-01   4.99360e+03
+   7  n_tW         6.02005e+04   5.28334e+02   5.00000e-01   7.52430e+02
+   8  n_ttbar      1.41445e+06   1.72149e+02   5.00000e-01   4.55489e+01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  1.332e+09  3.801e+07  2.401e+09  1.407e+05  2.019e+04  1.056e+05  5.591e+05 -4.979e+05 
+  3.801e+07  1.717e+07  6.787e+07  3.951e+03  5.663e+02  2.932e+03  1.501e+04 -1.274e+04 
+  2.401e+09  6.787e+07  4.345e+09  2.515e+05  3.608e+04  1.887e+05  9.993e+05 -8.899e+05 
+  1.407e+05  3.951e+03  2.515e+05  1.252e+02  2.114e+00  1.106e+01  5.856e+01 -5.215e+01 
+  2.019e+04  5.663e+02  3.608e+04  2.114e+00  7.114e+00  1.587e+00  8.403e+00 -7.484e+00 
+  1.056e+05  2.932e+03  1.887e+05  1.106e+01  1.587e+00  3.197e+02  4.395e+01 -3.914e+01 
+  5.591e+05  1.501e+04  9.993e+05  5.856e+01  8.403e+00  4.395e+01  1.179e+03 -2.072e+02 
+ -4.979e+05 -1.274e+04 -8.899e+05 -5.215e+01 -7.484e+00 -3.914e+01 -2.072e+02  4.069e+02 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.99823   1.000  0.251  0.998  0.345  0.207  0.162  0.446 -0.676
+        2  0.25616   0.251  1.000  0.248  0.085  0.051  0.040  0.105 -0.152
+        3  0.99818   0.998  0.248  1.000  0.341  0.205  0.160  0.442 -0.669
+        4  0.34814   0.345  0.085  0.341  1.000  0.071  0.055  0.152 -0.231
+        5  0.20955   0.207  0.051  0.205  0.071  1.000  0.033  0.092 -0.139
+        6  0.16349   0.162  0.040  0.160  0.055  0.033  1.000  0.072 -0.109
+        7  0.45084   0.446  0.105  0.442  0.152  0.092  0.072  1.000 -0.299
+        8  0.68348  -0.676 -0.152 -0.669 -0.231 -0.139 -0.109 -0.299  1.000
+ ERR MATRIX NOT POS-DEF
+[#1] INFO:Minization -- RooMinuit::optimizeConst: deactivating const optimization
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets,pdf_WJets,pdf_QCD)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets,pdf_WJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar,pdf_DYJets)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW,pdf_tW,pdf_ttbar)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) directly selected PDF components: (pdf_ZZ,pdf_WZ,pdf_WW)
+[#1] INFO:Plotting -- RooAbsPdf::plotOn(model) indirectly selected PDF components: ()
+
+  RooFitResult: minimized FCN value: -7.08515e+08, estimated distance to minimum: 3.4701
+                covariance matrix quality: Full matrix, but forced positive-definite
+                Status : MIGRAD=4 HESSE=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+              n_DYJets    4.6443e+06 +/-  2.65e+05
+                 n_QCD    2.0850e+07 +/-  4.14e+03
+               n_WJets    1.4720e+07 +/-  6.59e+04
+                  n_WW    8.3562e+04 +/-  2.03e+02
+                  n_WZ    3.0658e+04 +/-  1.63e+02
+                  n_ZZ    9.8743e+03 +/-  2.17e+02
+                  n_tW    6.0201e+04 +/-  5.28e+02
+               n_ttbar    1.4144e+06 +/-  1.72e+02
+
+chi2: 129861
+Normalized chi2: 259.722
+[#1] INFO:InputArguments -- RooAbsReal::createHistogram(model) INFO: Model has intrinsic binning definition, selecting that binning for the histogram
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+35.9 fb^{-1} (13 TeV)
+Info in <TCanvas::Print>: pdf file ../bin/print/fit_barrel.pdf has been created
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+Warning in <TH1D::Sumw2>: Sum of squares of weights structure already created
+Info in <TCanvas::Print>: pdf file ../bin/print/ratio_barrel.pdf has been created
