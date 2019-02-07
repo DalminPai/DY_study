@@ -12,6 +12,8 @@
 // -- 2018.01.24: Add "RelPFIso_dBeta" in muon
 // -- 2018.02.14: Add Loose Jet ID
 // -- 2018.03.08: Add "Uncorrected" electron variables
+// -- 2018.09.14: Adding LHE information
+// -- 2018.10.30: Add Tight Jet ID
 ///////////////////////////////////////////////////////////////
 
 #pragma once
@@ -1512,6 +1514,44 @@ public:
 		NHmulti = ntuple->Jet_NHmulti[index];
 	}
 
+	Bool_t isTightJet()
+	{
+		Bool_t isPass = kFALSE;
+
+		if( fabs(eta) <= 2.4 )
+		{
+			if( NHfrac < 0.90
+				&& NHEMfrac < 0.90
+				&& ( CHmulti + NHmulti ) > 1
+				&& CHfrac > 0
+				&& CHmulti > 0
+				&& CHEMfrac < 0.99 )
+				isPass = kTRUE;
+		}
+		else if( 2.4 < fabs(eta) && fabs(eta) <= 2.7 )
+		{
+			if( NHfrac < 0.90
+				&& NHEMfrac < 0.90
+				&& ( CHmulti + NHmulti ) > 1 )
+				isPass = kTRUE;
+		}
+		else if( 2.7 < fabs(eta) && fabs(eta) <= 3 )
+		{
+			if( NHfrac < 0.98
+				&& NHEMfrac > 0.01
+				&& NHmulti > 2 )
+				isPass = kTRUE;
+		}
+		else if( 3 < fabs(eta) )
+		{
+			if( NHEMfrac < 0.90
+				&& NHmulti > 10 )
+				isPass = kTRUE;
+		}
+
+		return isPass;		
+	}
+
 	Bool_t isLooseJet()
 	{
 		Bool_t isPass = kFALSE;
@@ -1548,6 +1588,29 @@ public:
 		}
 
 		return isPass;		
+	}
+};
+
+class LHE : public Object
+{
+public:
+	Double_t Px;
+	Double_t Py;
+	Double_t Pz;
+	Double_t Energy;
+	Int_t ID;
+	Int_t Status;
+
+	void FillFromNtuple(NtupleHandle *ntuple, Int_t index)
+	{
+		Px 		= ntuple->LHEParticle_Px[index];
+		Py 		= ntuple->LHEParticle_Py[index];
+		Pz 		= ntuple->LHEParticle_Pz[index];
+		Energy		= ntuple->LHEParticle_E[index];
+		ID 		= ntuple->LHEParticle_ID[index];
+		Status		= ntuple->LHEParticle_status[index];
+		
+		Momentum.SetPxPyPzE(Px, Py, Pz, Energy);
 	}
 };
 

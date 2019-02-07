@@ -73,7 +73,8 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 	else if( type == 41 ) Type = "VVnST";
 	else if( type == 51 ) Type = "WJetsToLNu";
 	// -- Alternative signal MC samples -- //
-	else if( type == 10 ) Type = "ZToMuMu_powheg";
+	else if( type == 19 ) Type = "ZToMuMu_powheg";
+	else if( type == 18 ) Type = "DYMuMu_M50toInf_madgraph";
 
 	Bool_t isMC = kTRUE;
 	if( type < 10  )
@@ -110,7 +111,7 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 	}
 
 	// -- Output ROOTFile -- //	
-	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20180619_MuMu_TightID_PFIso_LeadEtaStudy_re2_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
+	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20180802_MuMu_TightID_PFIso_Zpeak_wo_trackingSF_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
 								+TString::Itoa(isTopPtReweighting,10)+".root";
 	if( debug ) Output_ROOTFile = "test.root";
 	TFile *f = new TFile(Output_ROOTFile, "recreate");
@@ -138,7 +139,8 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 		if( isMC == kTRUE )
 		{
 			TString version = "v2.1";
-			if( type == 10 ) version = "v2.3";
+			//if( type == 10 ) version = "v2.3";
+			if( type == 19 || type == 18 ) version = "v2.3";
 
 			if( remainder == 9999 )
 				chain->Add(NtupleLocation+"/"+version+"/"+ntupleDirectory[i_tup]+"/*.root");
@@ -190,6 +192,11 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 		TH1D *h_leadPhi = (TH1D*)h_phi->Clone("h_leadPhi_"+Tag[i_tup]);
 		TH1D *h_subPhi = (TH1D*)h_phi->Clone("h_subPhi_"+Tag[i_tup]);
 
+		TH1D *h_plus_pT = (TH1D*)h_pT->Clone("h_plus_pT_"+Tag[i_tup]);
+		TH1D *h_minus_pT = (TH1D*)h_pT->Clone("h_minus_pT_"+Tag[i_tup]);
+		TH1D *h_plus_eta = (TH1D*)h_eta->Clone("h_plus_eta_"+Tag[i_tup]);
+		TH1D *h_minus_eta = (TH1D*)h_eta->Clone("h_minus_eta_"+Tag[i_tup]);
+
 		// Dilepton pT cut : 30GeV
 		TH1D *h_PtCut_mass = (TH1D*)h_mass->Clone("h_PtCut_mass_"+Tag[i_tup]);
 		TH1D *h_PtCut_mass_fine = (TH1D*)h_mass_fine->Clone("h_PtCut_mass_fine_"+Tag[i_tup]);
@@ -227,6 +234,11 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 		TH1D *h_Gen_phi = (TH1D*)h_phi->Clone("h_Gen_phi_"+Tag[i_tup]);
 		TH1D *h_Gen_leadPhi = (TH1D*)h_phi->Clone("h_Gen_leadPhi_"+Tag[i_tup]);
 		TH1D *h_Gen_subPhi = (TH1D*)h_phi->Clone("h_Gen_subPhi_"+Tag[i_tup]);
+
+		TH1D *h_Gen_plus_pT = (TH1D*)h_pT->Clone("h_Gen_plus_pT_"+Tag[i_tup]);
+		TH1D *h_Gen_minus_pT = (TH1D*)h_pT->Clone("h_Gen_minus_pT_"+Tag[i_tup]);
+		TH1D *h_Gen_plus_eta = (TH1D*)h_eta->Clone("h_Gen_plus_eta_"+Tag[i_tup]);
+		TH1D *h_Gen_minus_eta = (TH1D*)h_eta->Clone("h_Gen_minus_eta_"+Tag[i_tup]);
 
 		// LeadEtaStudy
 		TH1D *h_pt_leadEta[6];
@@ -354,6 +366,28 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 							h_Gen_subEta->Fill( genlep2.eta, TotWeight );
 							h_Gen_subPhi->Fill( genlep2.phi, TotWeight );
 
+							if( genlep1.charge == 1 )
+							{
+								h_Gen_plus_pT->Fill( genlep1.Pt, TotWeight );
+								h_Gen_plus_eta->Fill( genlep1.eta, TotWeight );
+							}
+							else if( genlep1.charge == -1 )
+							{
+								h_Gen_minus_pT->Fill( genlep1.Pt, TotWeight );
+								h_Gen_minus_eta->Fill( genlep1.eta, TotWeight );
+							}
+
+							if( genlep2.charge == 1 )
+							{
+								h_Gen_plus_pT->Fill( genlep2.Pt, TotWeight );
+								h_Gen_plus_eta->Fill( genlep2.eta, TotWeight );
+							}
+							else if( genlep2.charge == -1 )
+							{
+								h_Gen_minus_pT->Fill( genlep2.Pt, TotWeight );
+								h_Gen_minus_eta->Fill( genlep2.eta, TotWeight );
+							}
+
 							// LeadEtaStudy
 							for(Int_t i=0; i<6; i++)
 							{
@@ -458,6 +492,28 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 					h_subEta->Fill( mu2.eta, TotWeight * PUWeight * effweight );
 					h_subPhi->Fill( mu2.phi, TotWeight * PUWeight * effweight );
 
+					if( mu1.charge == 1 )
+					{
+						h_plus_pT->Fill( mu1.Pt, TotWeight * PUWeight * effweight );
+						h_plus_eta->Fill( mu1.eta, TotWeight * PUWeight * effweight );
+					}
+					else if( mu1.charge == -1 )
+					{
+						h_minus_pT->Fill( mu1.Pt, TotWeight * PUWeight * effweight );
+						h_minus_eta->Fill( mu1.eta, TotWeight * PUWeight * effweight );
+					}
+
+					if( mu2.charge == 1 )
+					{
+						h_plus_pT->Fill( mu2.Pt, TotWeight * PUWeight * effweight );
+						h_plus_eta->Fill( mu2.eta, TotWeight * PUWeight * effweight );
+					}
+					else if( mu2.charge == -1 )
+					{
+						h_minus_pT->Fill( mu2.Pt, TotWeight * PUWeight * effweight );
+						h_minus_eta->Fill( mu2.eta, TotWeight * PUWeight * effweight );
+					}
+
 					// Dilepton pT cut : 30GeV
 					if( 30 < reco_Pt )
 					{
@@ -540,6 +596,11 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 		h_M120to200_rapi->Write();
 		h_M200to1500_rapi->Write();
 
+		h_plus_pT->Write();
+		h_minus_pT->Write();
+		h_plus_eta->Write();
+		h_minus_eta->Write();
+
 		for(Int_t i=0; i<6; i++)
 		{
 			h_pt_leadEta[i]->Write();
@@ -561,6 +622,11 @@ void MuMu_TightID_PFIso_LeadEtaStudy(Int_t debug, Int_t type, Int_t remainder = 
 			h_Gen_subEta->Write();
 			h_Gen_leadPhi->Write();
 			h_Gen_subPhi->Write();
+
+			h_Gen_plus_pT->Write();
+			h_Gen_minus_pT->Write();
+			h_Gen_plus_eta->Write();
+			h_Gen_minus_eta->Write();
 
 			for(Int_t i=0; i<6; i++)
 			{

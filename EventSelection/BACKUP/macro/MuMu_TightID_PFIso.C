@@ -41,6 +41,7 @@ static inline void loadBar(int x, int n, int r, int w);
 // -- Remove "LeadEtaCorr" : 18 Jun. 2018 -- //
 // -- Leading and sub-leading are modified : 18 Jun. 2018 -- //
 // -- Update code with "PtCut" and "2D distribution of mass-rapdity" : 19 Jun. 2018 -- //
+// -- Add "ttbar(Backup)_Mto700": 02 Aug. 2018 -- //
 void MuMu_TightID_PFIso(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu24_OR_IsoTkMu24")
 {
 	gROOT->SetBatch(kTRUE);
@@ -65,8 +66,10 @@ void MuMu_TightID_PFIso(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t i
 	else if( type == 12 ) Type = "DYMuMu_M50to200";
 	else if( type == 13 ) Type = "DYMuMu_M200toInf";
 	// -- Background MC samples -- //
-	else if( type == 21 ) Type = "ttbar";
-	else if( type == 22 ) Type = "ttbarBackup";
+	//else if( type == 21 ) Type = "ttbar";
+	//else if( type == 22 ) Type = "ttbarBackup";
+	else if( type == 21 ) Type = "ttbar_Mto700";
+	else if( type == 22 ) Type = "ttbarBackup_Mto700";
 	else if( type == 23 ) Type = "ttbar_M700toInf";
 	else if( type == 31 ) Type = "DYTauTau_M10to50";
 	else if( type == 32 ) Type = "DYTauTau_M50toInf";
@@ -108,7 +111,7 @@ void MuMu_TightID_PFIso(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t i
 	}
 
 	// -- Output ROOTFile -- //	
-	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20180619_MuMu_TightID_PFIso_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
+	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20180717_MuMu_TightID_PFIso_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
 								+TString::Itoa(isTopPtReweighting,10)+".root";
 	if( debug ) Output_ROOTFile = "test.root";
 	TFile *f = new TFile(Output_ROOTFile, "recreate");
@@ -135,12 +138,15 @@ void MuMu_TightID_PFIso(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t i
 		//Set MC chain
 		if( isMC == kTRUE )
 		{
+			TString version = "v2.1";
+			if( ntupleDirectory[i_tup] == "WWTo2L2Nu" ) version = "v2.3";
+
 			if( remainder == 9999 )
-				chain->Add(NtupleLocation+"/v2.1/"+ntupleDirectory[i_tup]+"/*.root");
+				chain->Add(NtupleLocation+"/"+version+"/"+ntupleDirectory[i_tup]+"/*.root");
 			else
 				for(Double_t ii=1; ii<=1500; ii++)
 					if(ii - TMath::Floor(ii/Div) * Div == remainder)
-						chain->Add(NtupleLocation+"/v2.1/"+ntupleDirectory[i_tup]+"/*_"+TString::Itoa(ii,10)+".root");
+						chain->Add(NtupleLocation+"/"+version+"/"+ntupleDirectory[i_tup]+"/*_"+TString::Itoa(ii,10)+".root");
 		}
 		//Set Data chain
 		else

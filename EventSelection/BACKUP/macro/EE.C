@@ -26,7 +26,8 @@
 static inline void loadBar(int x, int n, int r, int w);
 
 // -- Electron Channel -- //
-// -- Modified from muon channel's macro : 19 Jun. 2018 -- //
+// -- Modified from muon channel's macro: 19 Jun. 2018 -- //
+// -- Add "ttbar(Backup)_Mto700": 02 Aug. 2018 -- //
 void EE(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "Ele23Ele12")
 {
 	gROOT->SetBatch(kTRUE);
@@ -53,8 +54,10 @@ void EE(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweightin
 	else if( type == 12 ) Type = "DYEE_M50to200";
 	else if( type == 13 ) Type = "DYEE_M200toInf";
 	// -- Background MC samples -- //
-	else if( type == 21 ) Type = "ttbar";
-	else if( type == 22 ) Type = "ttbarBackup";
+	//else if( type == 21 ) Type = "ttbar";
+	//else if( type == 22 ) Type = "ttbarBackup";
+	else if( type == 21 ) Type = "ttbar_Mto700";
+	else if( type == 22 ) Type = "ttbarBackup_Mto700";
 	else if( type == 23 ) Type = "ttbar_M700toInf";
 	else if( type == 31 ) Type = "DYTauTau_M10to50";
 	else if( type == 32 ) Type = "DYTauTau_M50toInf";
@@ -298,7 +301,7 @@ void EE(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweightin
 					}
 
 					Bool_t isPassAcc_GenLepton = kFALSE;
-					isPassAcc_GenLepton = analyzer->isPassAccCondition_GenLepton(genlep1, genlep2);
+					//isPassAcc_GenLepton = analyzer->isPassAccCondition_GenLepton(genlep1, genlep2); <= Wrong for electron channel !!!!!!!
 					if( isPassAcc_GenLepton == kTRUE )
 					{
 						Double_t gen_M = (genlep1.Momentum + genlep2.Momentum).M();

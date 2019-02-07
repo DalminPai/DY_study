@@ -5,7 +5,10 @@ array_type=("[1] Run2016B" "[2] Run2016C" "[3] Run2016D" "[4] Run2016E" "[5] Run
 			"[21] ttbar" "[22] ttbarBackup" "[23] ttbar_M700toInf"
 			"[31] DYTauTau_M10to50" "[32] DYTauTau_M50toInf"
 			"[41] VVnST"
-			"[51] WJetsToLNu")
+			#"[51] WJetsToLNu"
+			"[51] WJetsToLNu_amcatnlo" "[52] WJetsToLNu_amcatnlo_ext2v5"
+			"[61] QCDMuEnriched_Pt15to170" "[62] QCDMuEnriched_Pt170to600" "[63] QCDMuEnriched_Pt600toInf"
+			)
 
 ############## COLOR CODE ##############
 error(){
@@ -39,24 +42,50 @@ if [ $# -eq 0 ]; then
 fi
 
 macro=$1
+
 ## -- set sample type -- ##
+## default
 #type_all=(1 2 3 4 5 6 7 11 12 21 22 31 32 41 51)
-type_all=(1 2 3 4 5 6 7 11 12 13 21 22 23 31 32 41 51)
-type_data=$(seq 1 7)
 #type_mc=(11 12 21 22 31 32 41 51)
-type_mc=(11 12 13 21 22 23 31 32 41 51)
-type_usr=(12)
+
+## using high mass samples
+#type_all=(1 2 3 4 5 6 7 11 12 13 21 22 23 31 32 41 51)
+#type_mc=(11 12 13 21 22 23 31 32 41 51)
+
+## for FR_selectDenAndNumForFR.C
+#type_all=(1 2 3 4 5 6 7 11 12 21 22 41 51 61 62 63)
+#type_mc=(11 12 21 22 41 51 61 62 63)
+
+## for FR_applyFR.C
+#type_all=(1 2 3 4 5 6 7 11 12 21 22 41)
+#type_mc=(11 12 21 22 41)
+
+## for e-mu method
+#type_all=(1 2 3 4 5 6 7 21 22 23 31 32 41)
+#type_mc=(21 22 23 31 32 41)
+
+## for cross check with SMP-17-010
+type_all=(1 2 3 4 5 6 7 12 21 22 32 41)
+type_mc=(12 21 22 32 41)
+#type_mc=(21 22 32 41)
+
+type_data=$(seq 1 7)
+#type_usr=(3)
+#type_usr=(1 2 5)
+#type_usr=(6 7)
+type_usr=(4)
 types=${type_usr[@]}
 
 for arg in $*; do
 	case $arg in
 		$1)
+			echo
 			echo "Macro path is $macro"
 			echo "---------------------------------------------------------------------------"
 			;;
 		-h)
 			echo "Usage : $0 Macro.C (type) (-d) (-c) (-s)"
-			echo ""
+			echo
 			echo "  (type)    it will run the macro for some specific types (ex: all, mc, data, or usr)"
 			echo "  (-d)      it will read small number of entries from ntuple for test and debug"
 			echo "  (-c)      it will run jobs"
@@ -119,7 +148,9 @@ for i_type in ${types[@]}; do
 		fi
 	done;
 
-	if [ $i_type -eq 1 -o $i_type -eq 6 -o $i_type -eq 7 -o $i_type -eq 11 -o $i_type -eq 31 -o $i_type -eq 51 ]; then
+	#if [ $i_type -eq 1 -o $i_type -eq 6 -o $i_type -eq 7 -o $i_type -eq 11 -o $i_type -eq 31 -o $i_type -eq 51 ]; then
+	#if [ $i_type -eq 1 -o $i_type -eq 6 -o $i_type -eq 7 -o $i_type -eq 11 -o $i_type -eq 31 -o $i_type -eq 51 -o $i_type -gt 60 ]; then
+	if [ $i_type -eq 1 -o $i_type -eq 6 -o $i_type -eq 7 -o $i_type -eq 11 -o $i_type -eq 31 -o $i_type -eq 51 -o $i_type -eq 52 -o $i_type -gt 60 ]; then
 		max_rmdr=1
 	fi
 

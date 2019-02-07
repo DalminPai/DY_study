@@ -7,6 +7,10 @@
 // -- 2017.10.31: Changing Electron variables (by Dalmin Pai)
 // -- 2018.01.24: Add "Muon_PFSumPUIsoR04" to use "RelPFIso_dBeta" in muon
 // -- 2018.02.20: Add "Mu50_OR_TkMu50" in isTriggered
+// -- 2018.08.04: Add "PVx", "PVy", and "PVz"
+// -- 2018.09.14: Adding LHE variables (by Dalmin Pai)
+// -- 2018.12.05: Add L1 ECAL prefiring weight
+//                Remove "nUnCorrElectron"
 /////////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
@@ -27,6 +31,13 @@ public:
     //Int_t evtNum;
     unsigned long long evtNum;
     Int_t nPileUp;
+    Double_t PVx;
+    Double_t PVy;
+    Double_t PVz;
+    Double_t _prefiringweight;
+    Double_t _prefiringweightup;
+    Double_t _prefiringweightdown;
+
 
     //Trigger variables
     Int_t HLT_ntrig;
@@ -148,7 +159,7 @@ public:
     Bool_t Electron_passMediumID[MaxN]; // modified at 26 Jul. 2017 by Dalmin
 
     // -- Uncorrected Electrons -- //
-    Int_t nUnCorrElectron;
+//    Int_t nUnCorrElectron;
     Double_t Electron_pTUnCorr[MaxN];
     Double_t Electron_etaUnCorr[MaxN];
     Double_t Electron_phiUnCorr[MaxN];
@@ -305,6 +316,14 @@ public:
     Double_t pfMET_Type1_Py;
     Double_t pfMET_Type1_SumEt;
 
+    // -- LHE Information -- //
+    Int_t nLHEParticle;
+    Double_t LHEParticle_Px[MaxN];
+    Double_t LHEParticle_Py[MaxN];
+    Double_t LHEParticle_Pz[MaxN];
+    Double_t LHEParticle_E[MaxN];
+    Int_t LHEParticle_ID[MaxN];
+    Int_t LHEParticle_status[MaxN];
 
 
     // -- Constructor -- //
@@ -319,12 +338,18 @@ public:
         chain->SetBranchStatus("lumiBlock", 1);
         chain->SetBranchStatus("evtNum", 1);
     	chain->SetBranchStatus("nPileUp", 1);
+    	chain->SetBranchStatus("PVx", 1);
+    	chain->SetBranchStatus("PVy", 1);
+    	chain->SetBranchStatus("PVz", 1);
 
     	chain->SetBranchAddress("nVertices", &nVertices);
     	chain->SetBranchAddress("runNum", &runNum);
         chain->SetBranchAddress("lumiBlock", &lumiBlock);
         chain->SetBranchAddress("evtNum", &evtNum);
     	chain->SetBranchAddress("nPileUp", &nPileUp);
+    	chain->SetBranchAddress("PVx", &PVx);
+    	chain->SetBranchAddress("PVy", &PVy);
+    	chain->SetBranchAddress("PVz", &PVz);
 
     	// -- Trigger Information -- //
     	chain->SetBranchStatus("HLT_trigName", 1);
@@ -691,7 +716,7 @@ public:
         chain->SetBranchStatus("Electron_passMediumID", 1); // updated at 27 Apr. 2017 by Dalmin
 
     	// -- Uncorrected Electrons -- //
-    	chain->SetBranchStatus("nUnCorrElectron", 1);
+//    	chain->SetBranchStatus("nUnCorrElectron", 1);
     	chain->SetBranchStatus("Electron_pTUnCorr", 1);
     	chain->SetBranchStatus("Electron_etaUnCorr", 1);
     	chain->SetBranchStatus("Electron_phiUnCorr", 1);
@@ -757,7 +782,7 @@ public:
         chain->SetBranchAddress("Electron_passMediumID", &Electron_passMediumID); // updated at 27 Apr. 2017 by Dalmin
 
     	// -- Uncorrected Electrons -- //
-    	chain->SetBranchAddress("nUnCorrElectron", &nUnCorrElectron);
+//    	chain->SetBranchAddress("nUnCorrElectron", &nUnCorrElectron);
     	chain->SetBranchAddress("Electron_pTUnCorr", &Electron_pTUnCorr);
     	chain->SetBranchAddress("Electron_etaUnCorr", &Electron_etaUnCorr);
     	chain->SetBranchAddress("Electron_phiUnCorr", &Electron_phiUnCorr);
@@ -866,6 +891,36 @@ public:
     	chain->SetBranchAddress("pfMET_Type1_Px", &pfMET_Type1_Px);
     	chain->SetBranchAddress("pfMET_Type1_Py", &pfMET_Type1_Py);
     	chain->SetBranchAddress("pfMET_Type1_SumEt", &pfMET_Type1_SumEt);
+    }
+
+    void TurnOnBranches_LHE()
+    {
+        chain->SetBranchStatus("nLHEParticle", 1);
+        chain->SetBranchStatus("LHEParticle_Px", 1);
+        chain->SetBranchStatus("LHEParticle_Py", 1);
+        chain->SetBranchStatus("LHEParticle_Pz", 1);
+        chain->SetBranchStatus("LHEParticle_E", 1);
+        chain->SetBranchStatus("LHEParticle_ID", 1);
+        chain->SetBranchStatus("LHEParticle_status", 1);
+        
+    	chain->SetBranchAddress("nLHEParticle", &nLHEParticle);
+    	chain->SetBranchAddress("LHEParticle_Px", &LHEParticle_Px);
+    	chain->SetBranchAddress("LHEParticle_Py", &LHEParticle_Py);
+    	chain->SetBranchAddress("LHEParticle_Pz", &LHEParticle_Pz);
+    	chain->SetBranchAddress("LHEParticle_E", &LHEParticle_E);
+    	chain->SetBranchAddress("LHEParticle_ID", &LHEParticle_ID);
+    	chain->SetBranchAddress("LHEParticle_status", &LHEParticle_status);
+    }
+
+    void TurnOnBranches_prefiring()
+    {
+        chain->SetBranchStatus("_prefiringweight", 1);
+        chain->SetBranchStatus("_prefiringweightup", 1);
+        chain->SetBranchStatus("_prefiringweightdown", 1);
+        
+    	chain->SetBranchAddress("_prefiringweight", &_prefiringweight);
+    	chain->SetBranchAddress("_prefiringweightup", &_prefiringweightup);
+    	chain->SetBranchAddress("_prefiringweightdown", &_prefiringweightdown);
     }
 
     void GetEvent(Int_t i)

@@ -1,32 +1,38 @@
 // -- Class for common functions used in DY differential cross section measurement analysis @ 13 TeV -- //
 // -- Author: KyoengPil Lee, 05 Dec. 2015 -- //
 // -- Author: Dalmin Pai, 11 Sep. 2017 -- //
-// -- Synchronize acceptance cuts in dilepton channels : 19 Jan. 2018 -- //
-// -- Add N-1 selection of trkiso : 26 Jan. 2018 -- //
-// -- Change isolation (trkiso->RelPFIso_dBeta) in muon channel : 30 Jan. 2018 -- //
-// -- Change muon ID (HighPt->Tight) : 07 Feb. 2018 -- //
-// -- Change Xsec of DYMuMu_M50toInf from NLO to NNLO : 20 Feb. 2018 -- //
-// -- Add "Mu50_OR_TkMu50" trigger : 20 Feb. 2018 -- //
-// -- Add trigger matching in "EventSelection_Zdiff_13TeV" : 22 Feb. 2018 -- //
-// -- Add test functions to check efficiency SFs separately : 23 Feb. 2018 -- //
-// -- Add Tracking SF : 27 Feb. 2018 -- //
-// -- Modify "EventSelection" : 02 Mar. 2018 -- //
-// -- Add "EventSelection_ElectronChannel0" for without energy scale correction : 08 Mar. 2018 -- //
-// -- Add "EfficiencySF_EventWeight_electron_Reco" : 08 Mar. 2018 -- //
-// -- Modify wrong NNLO Xsec value of DYLL_M50toInf ( 6025.2/3 -> 1921.8 ) : 09 Mar. 2018 -- //
-// -- Add trigger part into "EfficiencySF_EventWeight_electron" : 14 Mar. 2018 -- //
-// -- Add "EfficiencySF_EventWeight_electron_RecoID" : 14 Mar. 2018 -- //
-// -- Add "massbins" which is used in DY mass distribution : 20 Mar. 2018 -- //
-// -- Add "DYMuMu_M200toInf" into SetupMCsamples_Moriond17 : 11 Apr. 2018 -- //
-// -- Modify EventSelections of dimuon, dielectron, and emu channels to use full mass range, correct Xsec values of DY samples with KP's values, and correct # of events of WJets : 13 Apr. 2018 -- //
-// -- Update "EventSelection_emu_method" : 13 Apr. 2018 -- //
-// -- Introduce "Leading muon eta SF" : 17 Apr. 2018 -- //
-// -- Modify "EventSelection" to use only Z peak : 17 Apr. 2018 -- //
-// -- Update "Leading muon eta SF" as "LeadEtaCorr" : 21 May. 2018 -- //
-// -- Insert nEvents of DYEE_M50to200 (27206082.0) : 19 Jun. 2018 -- //
-// -- Introduce "EventSelection_Zpeak" and modify "EventSelection" to use full mass : 19 Jun. 2018 -- //
-// -- Add "ZToMuMu(EE)_powheg" : 19 Jun. 2018 -- //
-// -- Introduce "EventSelection_ElectronChannel_Zpeak" : 19 Jun. 2018 -- //
+// -- Synchronize acceptance cuts in dilepton channels: 19 Jan. 2018 -- //
+// -- Add N-1 selection of trkiso: 26 Jan. 2018 -- //
+// -- Change isolation (trkiso->RelPFIso_dBeta) in muon channel: 30 Jan. 2018 -- //
+// -- Change muon ID (HighPt->Tight): 07 Feb. 2018 -- //
+// -- Change Xsec of DYMuMu_M50toInf from NLO to NNLO: 20 Feb. 2018 -- //
+// -- Add "Mu50_OR_TkMu50" trigger: 20 Feb. 2018 -- //
+// -- Add trigger matching in "EventSelection_Zdiff_13TeV": 22 Feb. 2018 -- //
+// -- Add test functions to check efficiency SFs separately: 23 Feb. 2018 -- //
+// -- Add Tracking SF: 27 Feb. 2018 -- //
+// -- Modify "EventSelection": 02 Mar. 2018 -- //
+// -- Add "EventSelection_ElectronChannel0" for without energy scale correction: 08 Mar. 2018 -- //
+// -- Add "EfficiencySF_EventWeight_electron_Reco": 08 Mar. 2018 -- //
+// -- Modify wrong NNLO Xsec value of DYLL_M50toInf ( 6025.2/3 -> 1921.8 ): 09 Mar. 2018 -- //
+// -- Add trigger part into "EfficiencySF_EventWeight_electron": 14 Mar. 2018 -- //
+// -- Add "EfficiencySF_EventWeight_electron_RecoID": 14 Mar. 2018 -- //
+// -- Add "massbins" which is used in DY mass distribution: 20 Mar. 2018 -- //
+// -- Add "DYMuMu_M200toInf" into SetupMCsamples_Moriond17: 11 Apr. 2018 -- //
+// -- Modify EventSelections of dimuon, dielectron, and emu channels to use full mass range, correct Xsec values of DY samples with KP's values, and correct # of events of WJets: 13 Apr. 2018 -- //
+// -- Update "EventSelection_emu_method": 13 Apr. 2018 -- //
+// -- Introduce "Leading muon eta SF": 17 Apr. 2018 -- //
+// -- Modify "EventSelection" to use only Z peak: 17 Apr. 2018 -- //
+// -- Update "Leading muon eta SF" as "LeadEtaCorr": 21 May. 2018 -- //
+// -- Insert nEvents of DYEE_M50to200 (27206082.0): 19 Jun. 2018 -- //
+// -- Introduce "EventSelection_Zpeak" and modify "EventSelection" to use full mass: 19 Jun. 2018 -- //
+// -- Add "ZToMuMu(EE)_powheg": 19 Jun. 2018 -- //
+// -- Introduce "EventSelection_ElectronChannel_Zpeak": 19 Jun. 2018 -- //
+// -- Debug electron trigger SF: 19 Jun. 2018 -- //
+// -- Add "DYMuMu_M50toInf_madgraph": 03 Jul. 2018 -- //
+// -- Test my electron ID SF: 03 Jul. 2018 -- //
+// -- Add "WWTo2L2Nu": 17 Jul. 2018 -- //
+// -- Update electron trigger SF: 17 Jul. 2018 -- //
+// -- pT is limited to 150 GeV in trigger SF: 18 Jul.2018 -- //
 #pragma once
 
 #include "Object_v01Dec17.h"
@@ -95,13 +101,18 @@ public:
 	Double_t Eff_Reco_data[30][1];
 	Double_t Eff_Reco_MC[30][1];
 
-	Double_t Eff_ID_data[10][5];
-	Double_t Eff_ID_MC[10][5];
+	//Double_t Eff_ID_data[10][5];
+	//Double_t Eff_ID_MC[10][5];
+	Double_t Eff_ID_data[20][5];
+	Double_t Eff_ID_MC[20][5];
 
-	Double_t Eff_HLT_Leg1_data[10][8];
-	Double_t Eff_HLT_Leg1_MC[10][8];
-	Double_t Eff_HLT_Leg2_data[10][8];
-	Double_t Eff_HLT_Leg2_MC[10][8];
+	Double_t Eff_HLT_Leg1_data[10][7];
+	Double_t Eff_HLT_Leg1_MC[10][7];
+
+	//Double_t Eff_HLT_Leg2_data[10][7];
+	//Double_t Eff_HLT_Leg2_MC[10][7];
+	Double_t Eff_HLT_Leg2_data[20][7];
+	Double_t Eff_HLT_Leg2_MC[20][7];
 
 	// -- outdated -- //
 	Double_t Eff_RecoID_data[5][4];
@@ -535,13 +546,13 @@ void DYAnalyzer::SetupMCsamples_Moriond17( TString Type, vector<TString> *ntuple
 	}
 	else if( Type == "DYEE_M50toInf" )
 	{
-		 cout << "# events should be adjusted later" << endl;
+		// cout << "# events should be adjusted later" << endl;
 		// -- Signal binned samples -- //
-		ntupleDirectory->push_back( "DYLL_M50toInf" ); Tag->push_back( "DYEE_M50toInf" ); Xsec->push_back( 1952.68432327 ); nEvents->push_back( 1.0 ); //nEvents: sum of DYEE weights, NNLO Xsec
+		ntupleDirectory->push_back( "DYLL_M50toInf" ); Tag->push_back( "DYEE_M50toInf" ); Xsec->push_back( 1952.68432327 ); nEvents->push_back( 27245327.0 ); //nEvents: sum of DYEE weights, NNLO Xsec
 	}
 	else if( Type == "DYEE_M50to200" )
 	{
-		cout << "# events should be adjusted later" << endl;
+		// cout << "# events should be adjusted later" << endl;
 		// -- Signal binned samples -- //
 		ntupleDirectory->push_back( "DYLL_M50toInf" ); Tag->push_back( "DYEE_M50to200" ); Xsec->push_back( 1873.52 + 76.2401 ); nEvents->push_back( 27206082.0 ); //nEvents: sum of DYEE weights
 	}
@@ -637,6 +648,7 @@ void DYAnalyzer::SetupMCsamples_Moriond17( TString Type, vector<TString> *ntuple
 		ntupleDirectory->push_back( "ZZ" ); Tag->push_back( "ZZ" ); Xsec->push_back( 16.523 ); nEvents->push_back( 998034.0 );
 		ntupleDirectory->push_back( "WZ" ); Tag->push_back( "WZ" ); Xsec->push_back( 47.13 ); nEvents->push_back( 2995828.0 );
 		ntupleDirectory->push_back( "WW" ); Tag->push_back( "WW" ); Xsec->push_back( 118.7 ); nEvents->push_back( 6987123.0 );
+		//ntupleDirectory->push_back( "WWTo2L2Nu" ); Tag->push_back( "WW" ); Xsec->push_back( 12.178 ); nEvents->push_back( 1999000.0 );
 	}
 	else if( Type == "WJetsToLNu" )
 	{
@@ -655,6 +667,10 @@ void DYAnalyzer::SetupMCsamples_Moriond17( TString Type, vector<TString> *ntuple
 	else if( Type == "ZToEE_powheg" )
 	{
 		ntupleDirectory->push_back( "ZToEE_M50to120" ); Tag->push_back( "ZToEE_M50to120" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
+	}
+	else if( Type == "DYMuMu_M50toInf_madgraph" )
+	{
+		ntupleDirectory->push_back( "DYLL_M50toInf_madgraph" ); Tag->push_back( "DYMuMu_M50toInf_madgraph" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
 	}
 	else if( Type == "QCDMuEnriched" )
 	{
@@ -2069,7 +2085,8 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 	/////////////////
 	// -- ID SF -- //
 	/////////////////
-	TFile *f2 = new TFile( Location+"MediumID_SF.root" );
+	//TFile *f2 = new TFile( Location+"MediumID_SF.root" );
+	TFile *f2 = new TFile( Location+"mysf/Electron_MediumID_Run2016BtoH.root" );
 	TGraphErrors *h_id_sf_0 = (TGraphErrors*)f2->Get("grSF1D_0");
 	TGraphErrors *h_id_sf_1 = (TGraphErrors*)f2->Get("grSF1D_1");
 	TGraphErrors *h_id_sf_2 = (TGraphErrors*)f2->Get("grSF1D_2");
@@ -2079,8 +2096,10 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 	Int_t nEtaBins_id = h_id_sf_0->GetN();
 	Int_t nPtBins_id = 5;
 
-	Double_t x_id[10]; Double_t xx_id[10];
-	Double_t y_id[10]; Double_t yy_id[10];
+	//Double_t x_id[10]; Double_t xx_id[10];
+	//Double_t y_id[10]; Double_t yy_id[10];
+	Double_t x_id[20]; Double_t xx_id[20];
+	Double_t y_id[20]; Double_t yy_id[20];
 
 	TGraphErrors *h_id_sf;
 	for(Int_t iter_y = 0; iter_y < nPtBins_id; iter_y++)
@@ -2129,7 +2148,7 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 	/////////////////////////////
 	// -- Trigger (leg1) SF -- //
 	/////////////////////////////
-	TFile *f3 = new TFile( Location+"Leg1_SF.root" );
+	/*TFile *f3 = new TFile( Location+"Leg1_SF.root" );
 	TGraphErrors *h_leg1_sf_0 = (TGraphErrors*)f3->Get("grSF1D_0");
 	TGraphErrors *h_leg1_sf_1 = (TGraphErrors*)f3->Get("grSF1D_1");
 	TGraphErrors *h_leg1_sf_2 = (TGraphErrors*)f3->Get("grSF1D_2");
@@ -2191,11 +2210,12 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 			Eff_HLT_Leg1_MC[iter_x][iter_y] = 1;
 			//cout << "ID: bin# = [" << iter_x << ", " << iter_y << "]" << " eta = " << xx_leg1[iter_x] << " sf = " << yy_leg1[iter_x] << endl;
 		}
-	}
+	}*/
 	/////////////////////////////
 	// -- Trigger (leg2) SF -- //
 	/////////////////////////////
-	TFile *f4 = new TFile( Location+"Leg2_SF.root" );
+	//TFile *f4 = new TFile( Location+"Leg2_SF.root" );
+	TFile *f4 = new TFile( Location+"mysf/Electron_Leg2_SF.root" );
 	TGraphErrors *h_leg2_sf_0 = (TGraphErrors*)f4->Get("grSF1D_0");
 	TGraphErrors *h_leg2_sf_1 = (TGraphErrors*)f4->Get("grSF1D_1");
 	TGraphErrors *h_leg2_sf_2 = (TGraphErrors*)f4->Get("grSF1D_2");
@@ -2203,13 +2223,16 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 	TGraphErrors *h_leg2_sf_4 = (TGraphErrors*)f4->Get("grSF1D_4");
 	TGraphErrors *h_leg2_sf_5 = (TGraphErrors*)f4->Get("grSF1D_5");
 	TGraphErrors *h_leg2_sf_6 = (TGraphErrors*)f4->Get("grSF1D_6");
-	TGraphErrors *h_leg2_sf_7 = (TGraphErrors*)f4->Get("grSF1D_7");
+	//TGraphErrors *h_leg2_sf_7 = (TGraphErrors*)f4->Get("grSF1D_7");
 
 	Int_t nEtaBins_leg2 = h_leg2_sf_0->GetN();
-	Int_t nPtBins_leg2 = 8;
+	//Int_t nPtBins_leg2 = 8;
+	Int_t nPtBins_leg2 = 7;
 
-	Double_t x_leg2[10]; Double_t xx_leg2[10];
-	Double_t y_leg2[10]; Double_t yy_leg2[10];
+	//Double_t x_leg2[10]; Double_t xx_leg2[10];
+	//Double_t y_leg2[10]; Double_t yy_leg2[10];
+	Double_t x_leg2[20]; Double_t xx_leg2[20];
+	Double_t y_leg2[20]; Double_t yy_leg2[20];
 
 	TGraphErrors *h_leg2_sf;
 	for(Int_t iter_y = 0; iter_y < nPtBins_leg2; iter_y++)
@@ -2221,7 +2244,7 @@ void DYAnalyzer::SetupEfficiencyScaleFactor_electron()
 		else if(iter_y == 4) h_leg2_sf = (TGraphErrors*)h_leg2_sf_4->Clone();
 		else if(iter_y == 5) h_leg2_sf = (TGraphErrors*)h_leg2_sf_5->Clone();
 		else if(iter_y == 6) h_leg2_sf = (TGraphErrors*)h_leg2_sf_6->Clone();
-		else if(iter_y == 7) h_leg2_sf = (TGraphErrors*)h_leg2_sf_7->Clone();
+		//else if(iter_y == 7) h_leg2_sf = (TGraphErrors*)h_leg2_sf_7->Clone();
 
 		for(Int_t i=0; i<nEtaBins_leg2; i++)
 		{
@@ -3159,6 +3182,9 @@ Double_t DYAnalyzer::EfficiencySF_EventWeight_electron(Electron ele1, Electron e
 
 	Int_t ptbin1_ID = Find_electron_PtBin_ID( Pt1 );
 	Int_t etabin1_ID = Find_electron_EtaBin_ID( eta1 );
+	//cout << "Pt1: " << Pt1 << "\teta1: " << eta1 << endl;
+	//cout << "ptbin1_ID: " << ptbin1_ID << "\tetabin1_ID: " << etabin1_ID << endl;
+	//cout << "Eff_SF: " << Eff_ID_data[etabin1_ID][ptbin1_ID] << endl;
 
 	Int_t ptbin1_Trig = Find_electron_PtBin_Trig( Pt1 );
 	Int_t etabin1_Trig = Find_electron_EtaBin_Trig( eta1 );
@@ -3201,6 +3227,12 @@ Double_t DYAnalyzer::EfficiencySF_EventWeight_electron(Electron ele1, Electron e
 	{
 		printf("(pt1, eta1, pt2, eta2): (%.3lf, %.3lf, %.3lf, %.3lf)\n", Pt1, eta1, Pt2, eta2);
 		printf("[SF] Weight = %.3lf\n", weight);
+	}
+	if( (Pt1 < 25 && eta1 > 2.3) || (Pt2 < 25 && eta2 > 2.3) )
+	{
+		printf("(pt1, eta1, pt2, eta2): (%.3lf, %.3lf, %.3lf, %.3lf)\n", Pt1, eta1, Pt2, eta2);
+		cout << Eff_EventTrig_data << "\t" << Eff_EventTrig_MC << endl;
+		cout << weight << endl;
 	}
 	return weight;
 }
@@ -3705,9 +3737,9 @@ Int_t DYAnalyzer::Find_electron_PtBin_ID(Double_t Pt)
 Int_t DYAnalyzer::Find_electron_PtBin_Trig(Double_t Pt)
 {
 	//const Int_t nPtBins = 4;
-	const Int_t nPtBins = 8;
+	const Int_t nPtBins = 7;
 	//Double_t PtBinEdges[nPtBins+1] = {10, 22, 40, 70, 250};
-	Double_t PtBinEdges[nPtBins+1] = {10, 15, 20, 25, 30, 50, 90, 150, 500};
+	Double_t PtBinEdges[nPtBins+1] = {10, 15, 20, 25, 30, 50, 90, 150};
 
 	Int_t ptbin = 9999;
 
@@ -3757,9 +3789,11 @@ Int_t DYAnalyzer::Find_electron_EtaBin_Reco(Double_t eta)
 Int_t DYAnalyzer::Find_electron_EtaBin_ID(Double_t eta)
 {
 	//const Int_t nEtaBins = 5;
-	const Int_t nEtaBins = 10;
+	//const Int_t nEtaBins = 10;
+	const Int_t nEtaBins = 22;
 	//Double_t EtaBinEdges[nEtaBins+1] = {-2.4, -1.2, -0.3, 0.3, 1.2, 2.4};
-	Double_t EtaBinEdges[nEtaBins+1] = {-2.5, -2.0, -1.566, -1.444, -0.8, 0.0, 0.8, 1.444, 1.566, 2.0, 2.5};
+	//Double_t EtaBinEdges[nEtaBins+1] = {-2.5, -2.0, -1.566, -1.444, -0.8, 0.0, 0.8, 1.444, 1.566, 2.0, 2.5};
+	Double_t EtaBinEdges[nEtaBins+1] = {-2.4,-2.3,-2.2,-2.1,-2.0,-1.566,-1.4442,-1.1,-0.8,-0.4,-0.2,0.0,0.2,0.4,0.8,1.1,1.4442,1.566,2.0,2.1,2.2,2.3,2.4};
 
 	Int_t etabin = 9999;
 
@@ -3768,7 +3802,11 @@ Int_t DYAnalyzer::Find_electron_EtaBin_ID(Double_t eta)
 		if( eta > EtaBinEdges[i] && eta < EtaBinEdges[i+1] )
 		//if( fabs(eta) > EtaBinEdges[i] && fabs(eta) < EtaBinEdges[i+1] )
 		{
-			etabin = i;
+			//etabin = i;
+			if( eta < -1.566 ) etabin = i;
+			else if( -1.4442 < eta && eta < 1.4442 ) etabin = i-1;
+			else if( 1.4442 < eta ) etabin = i-2;
+
 			break;
 		}
 	}
@@ -3779,9 +3817,11 @@ Int_t DYAnalyzer::Find_electron_EtaBin_ID(Double_t eta)
 Int_t DYAnalyzer::Find_electron_EtaBin_Trig(Double_t eta)
 {
 	//const Int_t nEtaBins = 5;
-	const Int_t nEtaBins = 10;
+	//const Int_t nEtaBins = 10;
+	const Int_t nEtaBins = 22;
 	//Double_t EtaBinEdges[nEtaBins+1] = {-2.4, -1.2, -0.3, 0.3, 1.2, 2.4};
-	Double_t EtaBinEdges[nEtaBins+1] = {-2.5, -2.0, -1.566, -1.444, -0.8, 0.0, 0.8, 1.444, 1.566, 2.0, 2.5};
+	//Double_t EtaBinEdges[nEtaBins+1] = {-2.5, -2.0, -1.566, -1.444, -0.8, 0.0, 0.8, 1.444, 1.566, 2.0, 2.5};
+	Double_t EtaBinEdges[nEtaBins+1] = {-2.4,-2.3,-2.2,-2.1,-2.0,-1.566,-1.4442,-1.1,-0.8,-0.4,-0.2,0.0,0.2,0.4,0.8,1.1,1.4442,1.566,2.0,2.1,2.2,2.3,2.4};
 
 	Int_t etabin = 9999;
 
@@ -3790,7 +3830,11 @@ Int_t DYAnalyzer::Find_electron_EtaBin_Trig(Double_t eta)
 		if( eta > EtaBinEdges[i] && eta < EtaBinEdges[i+1] )
 		//if( fabs(eta) > EtaBinEdges[i] && fabs(eta) < EtaBinEdges[i+1] )
 		{
-			etabin = i;
+			//etabin = i;
+			if( eta < -1.566 ) etabin = i;
+			else if( -1.4442 < eta && eta < 1.4442 ) etabin = i-1;
+			else if( 1.4442 < eta ) etabin = i-2;
+
 			break;
 		}
 	}

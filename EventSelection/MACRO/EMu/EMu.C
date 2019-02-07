@@ -28,6 +28,7 @@
 static inline void loadBar(int x, int n, int r, int w);
 
 // -- Electron-Muon Event Selection -- //
+// -- Add "ttbar(Backup)_Mto700": 02 Aug. 2018 -- //
 void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu24_OR_IsoTkMu24")
 {
 	gROOT->SetBatch(kTRUE);
@@ -52,8 +53,10 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 	else if( type == 12 ) Type = "DYMuMu_M50to200";
 	else if( type == 13 ) Type = "DYMuMu_M200toInf";*/
 	// -- Background MC samples -- //
-	else if( type == 21 ) Type = "ttbar";
-	else if( type == 22 ) Type = "ttbarBackup";
+	//else if( type == 21 ) Type = "ttbar";
+	//else if( type == 22 ) Type = "ttbarBackup";
+	else if( type == 21 ) Type = "ttbar_Mto700";
+	else if( type == 22 ) Type = "ttbarBackup_Mto700";
 	else if( type == 23 ) Type = "ttbar_M700toInf";
 	else if( type == 31 ) Type = "DYTauTau_M10to50";
 	else if( type == 32 ) Type = "DYTauTau_M50toInf";
@@ -96,7 +99,7 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 	}
 
 	// -- Output ROOTFile -- //	
-	TString Output_ROOTFile = BaseDir+"/RESULT/EMu/ROOTFile_20180625_EMu_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
+	TString Output_ROOTFile = BaseDir+"/RESULT/EMu/ROOTFile_20181012_EMu_"+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"
 								+TString::Itoa(isTopPtReweighting,10)+".root";
 	if( debug ) Output_ROOTFile = "test.root";
 	TFile *f = new TFile(Output_ROOTFile, "recreate");
@@ -179,6 +182,26 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 		TH1D *h_eleSS_etaSC = (TH1D*)h_mu_eta->Clone("h_eleSS_etaSC_"+Tag[i_tup]);
 		TH1D *h_eleSS_phi = (TH1D*)h_mu_phi->Clone("h_eleSS_phi_"+Tag[i_tup]);
 
+		TH1D *h_PtCut_emu_mass = (TH1D*)h_emu_mass->Clone("h_PtCut_emu_mass_"+Tag[i_tup]);
+		TH1D *h_PtCut_emu_mass_fine = (TH1D*)h_emu_mass_fine->Clone("h_PtCut_emu_mass_fine_"+Tag[i_tup]);
+		TH1D *h_PtCut_mu_pT = (TH1D*)h_mu_pT->Clone("h_PtCut_mu_pT_"+Tag[i_tup]);
+		TH1D *h_PtCut_mu_eta = (TH1D*)h_mu_eta->Clone("h_PtCut_mu_eta_"+Tag[i_tup]);
+		TH1D *h_PtCut_mu_phi = (TH1D*)h_mu_phi->Clone("h_PtCut_mu_phi_"+Tag[i_tup]);
+		TH1D *h_PtCut_ele_pT = (TH1D*)h_mu_pT->Clone("h_PtCut_ele_pT_"+Tag[i_tup]);
+		TH1D *h_PtCut_ele_eta = (TH1D*)h_mu_eta->Clone("h_PtCut_ele_eta_"+Tag[i_tup]);
+		TH1D *h_PtCut_ele_etaSC = (TH1D*)h_mu_eta->Clone("h_PtCut_ele_etaSC_"+Tag[i_tup]);
+		TH1D *h_PtCut_ele_phi = (TH1D*)h_mu_phi->Clone("h_PtCut_ele_phi_"+Tag[i_tup]);
+
+		TH1D *h_PtCut_emuSS_mass = (TH1D*)h_emu_mass->Clone("h_PtCut_emuSS_mass_"+Tag[i_tup]);
+		TH1D *h_PtCut_emuSS_mass_fine = (TH1D*)h_emu_mass_fine->Clone("h_PtCut_emuSS_mass_fine_"+Tag[i_tup]);
+		TH1D *h_PtCut_muSS_pT = (TH1D*)h_mu_pT->Clone("h_PtCut_muSS_pT_"+Tag[i_tup]);
+		TH1D *h_PtCut_muSS_eta = (TH1D*)h_mu_eta->Clone("h_PtCut_muSS_eta_"+Tag[i_tup]);
+		TH1D *h_PtCut_muSS_phi = (TH1D*)h_mu_phi->Clone("h_PtCut_muSS_phi_"+Tag[i_tup]);
+		TH1D *h_PtCut_eleSS_pT = (TH1D*)h_mu_pT->Clone("h_PtCut_eleSS_pT_"+Tag[i_tup]);
+		TH1D *h_PtCut_eleSS_eta = (TH1D*)h_mu_eta->Clone("h_PtCut_eleSS_eta_"+Tag[i_tup]);
+		TH1D *h_PtCut_eleSS_etaSC = (TH1D*)h_mu_eta->Clone("h_PtCut_eleSS_etaSC_"+Tag[i_tup]);
+		TH1D *h_PtCut_eleSS_phi = (TH1D*)h_mu_phi->Clone("h_PtCut_eleSS_phi_"+Tag[i_tup]);
+
 		Double_t SumWeight = 0, SumWeight_Separated = 0;
 
 		Int_t NEvents = 10000; // test using small events
@@ -220,7 +243,7 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 				SumWeight_Separated += GenWeight;
 
 				// -- Top Pt Reweighting -- //
-				/*if( isTopPtReweighting == 1 && Tag[i_tup].Contains("ttbar") )
+				if( isTopPtReweighting == 1 && Tag[i_tup].Contains("ttbar") )
 				{
 					GenOthers t1 = GenTopCollection[0];
 					GenOthers t2 = GenTopCollection[1];
@@ -228,7 +251,7 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 					Double_t SF1 = exp(0.0615 - 0.0005*(t1.Pt));
 					Double_t SF2 = exp(0.0615 - 0.0005*(t2.Pt));
 					GenWeight = GenWeight*sqrt(SF1*SF2);
-				}*/
+				}
 			}
 
 			// -- Normalization -- //
@@ -295,6 +318,7 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 					Electron ele = SelectedElectronCollection[0];
 
 					Double_t reco_M = (mu.Momentum + ele.Momentum).M();
+					Double_t reco_Pt = (mu.Momentum + ele.Momentum).Pt();
 
 					// -- Apply efficiency correcion -- //
 					if( isMC == kTRUE )
@@ -315,6 +339,20 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 						h_ele_eta->Fill( ele.eta, TotWeight * PUWeight * effweight );
 						h_ele_etaSC->Fill( ele.etaSC, TotWeight * PUWeight * effweight );
 						h_ele_phi->Fill( ele.phi, TotWeight * PUWeight * effweight );
+
+						// Dilepton pT cut : 30GeV
+						if( 30 < reco_Pt )
+						{
+							h_PtCut_emu_mass->Fill( reco_M, TotWeight * PUWeight * effweight );
+							h_PtCut_emu_mass_fine->Fill( reco_M, TotWeight * PUWeight * effweight );
+							h_PtCut_mu_pT->Fill( mu.Pt, TotWeight * PUWeight * effweight );
+							h_PtCut_mu_eta->Fill( mu.eta, TotWeight * PUWeight * effweight );
+							h_PtCut_mu_phi->Fill( mu.phi, TotWeight * PUWeight * effweight );
+							h_PtCut_ele_pT->Fill( ele.Pt, TotWeight * PUWeight * effweight );
+							h_PtCut_ele_eta->Fill( ele.eta, TotWeight * PUWeight * effweight );
+							h_PtCut_ele_etaSC->Fill( ele.etaSC, TotWeight * PUWeight * effweight );
+							h_PtCut_ele_phi->Fill( ele.phi, TotWeight * PUWeight * effweight );
+						}
 					}
 					else // same charge
 					{
@@ -327,6 +365,20 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 						h_eleSS_eta->Fill( ele.eta, TotWeight * PUWeight * effweight );
 						h_eleSS_etaSC->Fill( ele.etaSC, TotWeight * PUWeight * effweight );
 						h_eleSS_phi->Fill( ele.phi, TotWeight * PUWeight * effweight );
+
+						// Dilepton pT cut : 30GeV
+						if( 30 < reco_Pt )
+						{
+							h_PtCut_emuSS_mass->Fill( reco_M, TotWeight * PUWeight * effweight );
+							h_PtCut_emuSS_mass_fine->Fill( reco_M, TotWeight * PUWeight * effweight );
+							h_PtCut_muSS_pT->Fill( mu.Pt, TotWeight * PUWeight * effweight );
+							h_PtCut_muSS_eta->Fill( mu.eta, TotWeight * PUWeight * effweight );
+							h_PtCut_muSS_phi->Fill( mu.phi, TotWeight * PUWeight * effweight );
+							h_PtCut_eleSS_pT->Fill( ele.Pt, TotWeight * PUWeight * effweight );
+							h_PtCut_eleSS_eta->Fill( ele.eta, TotWeight * PUWeight * effweight );
+							h_PtCut_eleSS_etaSC->Fill( ele.etaSC, TotWeight * PUWeight * effweight );
+							h_PtCut_eleSS_phi->Fill( ele.phi, TotWeight * PUWeight * effweight );
+						}
 					}
 				} // End of event selection
 
@@ -353,6 +405,26 @@ void EMu(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighti
 		h_eleSS_eta->Write();
 		h_eleSS_etaSC->Write();
 		h_eleSS_phi->Write();
+
+		h_PtCut_emu_mass->Write();
+		h_PtCut_emu_mass_fine->Write();
+		h_PtCut_mu_pT->Write();
+		h_PtCut_mu_eta->Write();
+		h_PtCut_mu_phi->Write();
+		h_PtCut_ele_pT->Write();
+		h_PtCut_ele_eta->Write();
+		h_PtCut_ele_etaSC->Write();
+		h_PtCut_ele_phi->Write();
+
+		h_PtCut_emuSS_mass->Write();
+		h_PtCut_emuSS_mass_fine->Write();
+		h_PtCut_muSS_pT->Write();
+		h_PtCut_muSS_eta->Write();
+		h_PtCut_muSS_phi->Write();
+		h_PtCut_eleSS_pT->Write();
+		h_PtCut_eleSS_eta->Write();
+		h_PtCut_eleSS_etaSC->Write();
+		h_PtCut_eleSS_phi->Write();
 
 		printf("\tTotal sum of weights: %.1lf\n", SumWeight);
 		printf("\tSum of weights of Seperated events: %.1lf\n", SumWeight_Separated);

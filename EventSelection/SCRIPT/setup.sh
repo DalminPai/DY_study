@@ -18,10 +18,10 @@ YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 ########################################
 
-if [ $HOSTNAME != 'prime' -a $HOSTNAME != 'tamsa2' ]; then
-    error "This script is allowed only in tamsa2 and prime servers!!"
-    exit;
-fi
+#if [ $HOSTNAME != 'prime' -a $HOSTNAME != 'tamsa2' ]; then
+#    error "This script is allowed only in tamsa2 and prime servers!!"
+#    exit;
+#fi
 
 ##################
 # -- Set path -- #
@@ -34,6 +34,9 @@ if [ $HOSTNAME == "prime" ]; then
 	DM_BASE_PATH="/home/dmpai/dy_analysis/EventSelection"
 elif [ $HOSTNAME == "tamsa2.snu.ac.kr" ]; then
 	DM_DATA_PATH="/data9/DATA/DYntuple"
+elif [ $HOSTNAME == "cms.knu.ac.kr" -o $HOSTNAME == "cms01.knu.ac.kr" -o $HOSTNAME == "cms02.knu.ac.kr" -o $HOSTNAME == "cms03.knu.ac.kr" ]; then
+	DM_DATA_PATH="/u/user/dmpai/SE_UserHome/_prime_/DYntuple"
+	DM_BASE_PATH="/u/user/dmpai/prime/dy_analysis/EventSelection"
 fi
 
 ################################
