@@ -38,6 +38,7 @@ If you do not want to use this correction, then you can use electron variables w
 * Reference
 
 	https://twiki.cern.ch/twiki/bin/view/CMS/EGMSmearer#!ECAL%20scale%20and%20resolution%20corre
+	https://github.com/KyeongPil-Lee/NtupleMaker/tree/80X
 
 ## Efficiency SF
 It should be applied to MC in both channels.<br>
@@ -87,7 +88,8 @@ So, you can easily apply it by calling the weight from ntuple.<br>
 
 * Reference
 
-	https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1ECALPrefiringWeightRecipe<br>
+	https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1ECALPrefiringWeightRecipe
+	https://github.com/KyeongPil-Lee/NtupleMaker/tree/80X
 	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2016_418_v10.pdf (section 13)
 
 ## Top pt reweighting
