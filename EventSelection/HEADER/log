@@ -1,0 +1,271 @@
+4,60c4,48
+< // -- 2018.01.19: Synchronize acceptance cuts in dilepton channels
+< // -- 2018.01.26: Add N-1 selection of trkiso
+< // -- 2018.01.30: Change isolation (trkiso->RelPFIso_dBeta) in muon channel
+< // -- 2018.02.07: Change muon ID (HighPt->Tight)
+< // -- 2018.02.20: Change Xsec of DYMuMu_M50toInf from NLO to NNLO
+< //                Add "Mu50_OR_TkMu50" trigger
+< // -- 2018.02.22: Add trigger matching in "EventSelection_Zdiff_13TeV"
+< // -- 2018.02.23: Add test functions to check efficiency SFs separately
+< // -- 2018.02.27: Add Tracking SF
+< // -- 2018.03.02: Modify "EventSelection"
+< // -- 2018.03.08: Add "EventSelection_ElectronChannel0" for without energy scale correction
+< //                Add "EfficiencySF_EventWeight_electron_Reco"
+< // -- 2018.03.09: Modify wrong NNLO Xsec value of DYLL_M50toInf ( 6025.2/3 -> 1921.8 )
+< // -- 2018.03.14: Add trigger part into "EfficiencySF_EventWeight_electron"
+< //                Add "EfficiencySF_EventWeight_electron_RecoID"
+< // -- 2018.03.20: Add "massbins" which is used in DY mass distribution
+< // -- 2018.04.11: Add "DYMuMu_M200toInf" into SetupMCsamples_Moriond17
+< // -- 2018.04.13: Modify EventSelections of dimuon, dielectron, and emu channels to use full mass range
+< //                Correct Xsec values of DY samples with KP's values
+< //                Correct # of events of WJets
+< //                Update "EventSelection_emu_method"
+< // -- 2018.04.17: Introduce "Leading muon eta SF"
+< //                Modify "EventSelection" to use only Z peak
+< // -- 2018.05.21: Update "Leading muon eta SF" as "LeadEtaCorr"
+< // -- 2018.06.19: Insert nEvents of DYEE_M50to200 (27206082.0)
+< //                Introduce "EventSelection_Zpeak" and modify "EventSelection" to use full mass
+< //                Add "ZToMuMu(EE)_powheg"
+< //                Introduce "EventSelection_ElectronChannel_Zpeak"
+< //                Debug electron trigger SF
+< // -- 2018.07.03: Add "DYMuMu_M50toInf_madgraph"
+< //                Test my electron ID SF
+< // -- 2018.07.17: Add "WWTo2L2Nu"
+< //                Update electron trigger SF
+< // -- 2018.07.18: pT is limited to 150 GeV in trigger SF
+< // -- 2018.07.24: Add MC sets for fake-rate method
+< // -- 2018.07.30: Modify the "EventSelecion_Dijet" and "EventSelection_Wjet" for fake-rate method
+< // -- 2018.07.31: Add "FR_template" and "FR_ratio" for fake-rate method
+< // -- 2018.08.02: Remove tracking SF part in muon efficiency SF to test it
+< //                Add "ttbar(Backup)_Mto700" and update "Separate_ttbarSample"
+< // -- 2018.08.06: Introduce PVz re-weighting
+< // ----------------------------------------------------
+< // -- 2018.08.07: make "DYAnalyzer_TightID_PFIso_NewMuonSF.h"
+< // ----------------------------------------------------
+< // -- 2018.09.05: Add "Count_genJetNum"
+< // -- 2018.10.11: Bug was fixed in "EventSelection_Wjet"
+< //    ( Muon recolep2 = FailingMuonCollection[1] => Muon recolep2 = FailingMuonCollection[0] )
+< // -- 2018.10.16: FR value was updated (using TightMuonID and PFIso)
+< // -- 2018.10.30: Introduce L1 prefiring inefficiency
+< // ----------------------------------------------------
+< // -- 2019.02.12: modified from "DYAnalyzer_TightID_PFIso_v20180521.h" by merging with "DYAnalyzer_TightID_PFIso_NewMuonSF.h"
+< // ----------------------------------------------------
+< //                Insert new muon efficiency SF
+< //                Add WJetsToLNu_amcatnlo* samples
+< //                Update "Separate_ttbarSample"
+< //                Update "Find_muon_PtBin(EtaBin)_ID(Iso)"
+< //                Add "DYLL_M100(200)to200(400)_fixed"
+< //                Introduce "GenMuonPt"
+---
+> // -- Synchronize acceptance cuts in dilepton channels: 19 Jan. 2018 -- //
+> // -- Add N-1 selection of trkiso: 26 Jan. 2018 -- //
+> // -- Change isolation (trkiso->RelPFIso_dBeta) in muon channel: 30 Jan. 2018 -- //
+> // -- Change muon ID (HighPt->Tight): 07 Feb. 2018 -- //
+> // -- Change Xsec of DYMuMu_M50toInf from NLO to NNLO: 20 Feb. 2018 -- //
+> // -- Add "Mu50_OR_TkMu50" trigger: 20 Feb. 2018 -- //
+> // -- Add trigger matching in "EventSelection_Zdiff_13TeV": 22 Feb. 2018 -- //
+> // -- Add test functions to check efficiency SFs separately: 23 Feb. 2018 -- //
+> // -- Add Tracking SF: 27 Feb. 2018 -- //
+> // -- Modify "EventSelection": 02 Mar. 2018 -- //
+> // -- Add "EventSelection_ElectronChannel0" for without energy scale correction: 08 Mar. 2018 -- //
+> // -- Add "EfficiencySF_EventWeight_electron_Reco": 08 Mar. 2018 -- //
+> // -- Modify wrong NNLO Xsec value of DYLL_M50toInf ( 6025.2/3 -> 1921.8 ): 09 Mar. 2018 -- //
+> // -- Add trigger part into "EfficiencySF_EventWeight_electron": 14 Mar. 2018 -- //
+> // -- Add "EfficiencySF_EventWeight_electron_RecoID": 14 Mar. 2018 -- //
+> // -- Add "massbins" which is used in DY mass distribution: 20 Mar. 2018 -- //
+> // -- Add "DYMuMu_M200toInf" into SetupMCsamples_Moriond17: 11 Apr. 2018 -- //
+> // -- Modify EventSelections of dimuon, dielectron, and emu channels to use full mass range, correct Xsec values of DY samples with KP's values, and correct # of events of WJets: 13 Apr. 2018 -- //
+> // -- Update "EventSelection_emu_method": 13 Apr. 2018 -- //
+> // -- Introduce "Leading muon eta SF": 17 Apr. 2018 -- //
+> // -- Modify "EventSelection" to use only Z peak: 17 Apr. 2018 -- //
+> // -- Update "Leading muon eta SF" as "LeadEtaCorr": 21 May. 2018 -- //
+> // -- Insert nEvents of DYEE_M50to200 (27206082.0): 19 Jun. 2018 -- //
+> // -- Introduce "EventSelection_Zpeak" and modify "EventSelection" to use full mass: 19 Jun. 2018 -- //
+> // -- Add "ZToMuMu(EE)_powheg": 19 Jun. 2018 -- //
+> // -- Introduce "EventSelection_ElectronChannel_Zpeak": 19 Jun. 2018 -- //
+> // -- Debug electron trigger SF: 19 Jun. 2018 -- //
+> // -- Add "DYMuMu_M50toInf_madgraph": 03 Jul. 2018 -- //
+> // -- Test my electron ID SF: 03 Jul. 2018 -- //
+> // -- Add "WWTo2L2Nu": 17 Jul. 2018 -- //
+> // -- Update electron trigger SF: 17 Jul. 2018 -- //
+> // -- pT is limited to 150 GeV in trigger SF: 18 Jul.2018 -- //
+> // -- Add MC sets for fake-rate method: 24 Jul. 2018 -- //
+> // -- Modify the "EventSelecion_Dijet" and "EventSelection_Wjet" for fake-rate method: 30 Jul. 2018 -- //
+> // -- Add "FR_template" and "FR_ratio" for fake-rate method: 31 Jul. 2018 -- //
+> // -- Remove tracking SF part in muon efficiency SF to test it: 02 Aug. 2018 -- //
+> // -- Add "ttbar(Backup)_Mto700" and update "Separate_ttbarSample": 02 Aug. 2018 -- //
+> // -- Introduce PVz re-weighting: 06 Aug. 2018 -- //
+> // -- Insert new muon efficiency SF: 07 Aug. 2018 -- //
+> // -- Introduce L1 prefiring inefficiency: 30 Oct. 2018 -- //
+> // -- Add WJetsToLNu_amcatnlo* samples: 14-19 Nov. 2018 -- //
+> // -- Update "Separate_ttbarSample": 12 Feb. 2019 -- //
+> // -- Update "Find_muon_PtBin(EtaBin)_ID(Iso)": 12 Feb. 2019 -- //
+> // -- Add "DYLL_M100(200)to200(400)_fixed": 12 Feb. 2019 -- //
+> // -- Introduce "GenMuonPt": 12 Feb. 2019 -- //
+128a117,118
+> 
+> 
+168a159,160
+> 
+> 
+240a233
+> 
+244a238
+> 
+249a244
+> 
+256a252,254
+> 
+> 
+> 
+265d262
+< 
+352d348
+< 	Int_t Count_genJetNum(NtupleHandle *ntuple, vector<Int_t> *id);
+800,811c796,799
+< 		// -- Signal binned samples -- //
+< 		//NLO Xsec from AN2016_391_v9
+< 		ntupleDirectory->push_back( "ZToMuMu_M50to120" ); Tag->push_back( "ZToMuMu_M50to120" ); Xsec->push_back(1975.0); nEvents->push_back(2812472.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M120to200" ); Tag->push_back( "ZToMuMu_M120to200" ); Xsec->push_back(19.32); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M200to400" ); Tag->push_back( "ZToMuMu_M200to400" ); Xsec->push_back(2.731); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M400to800" ); Tag->push_back( "ZToMuMu_M400to800" ); Xsec->push_back(0.241); nEvents->push_back(98400.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M800to1400" ); Tag->push_back( "ZToMuMu_M800to1400" ); Xsec->push_back(1.678E-2); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M1400to2300" ); Tag->push_back( "ZToMuMu_M1400to2300" ); Xsec->push_back(1.39E-3); nEvents->push_back(95106.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M2300to3500" ); Tag->push_back( "ZToMuMu_M2300to3500" ); Xsec->push_back(0.8948E-4); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M3500to4500" ); Tag->push_back( "ZToMuMu_M3500to4500" ); Xsec->push_back(0.4135E-5); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M4500to6000" ); Tag->push_back( "ZToMuMu_M4500to6000" ); Xsec->push_back(4.56E-7); nEvents->push_back(100000.0);
+< 		ntupleDirectory->push_back( "ZToMuMu_M6000toInf" ); Tag->push_back( "ZToMuMu_M6000toInf" ); Xsec->push_back(2.06E-8); nEvents->push_back(100000.0);
+---
+> 		ntupleDirectory->push_back( "ZToMuMu_M50to120" ); Tag->push_back( "ZToMuMu_M50to120" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
+> 		//ntupleDirectory->push_back( "ZToMuMu_M120to200" ); Tag->push_back( "ZToMuMu_M120to200" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
+> 		//ntupleDirectory->push_back( "ZToMuMu_M200to400" ); Tag->push_back( "ZToMuMu_M200to400" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
+> 		//ntupleDirectory->push_back( "ZToMuMu_M400to800" ); Tag->push_back( "ZToMuMu_M400to800" ); Xsec->push_back(1.0); nEvents->push_back(1.0);
+1399,1429d1386
+< Int_t DYAnalyzer::Count_genJetNum(NtupleHandle *ntuple, vector<Int_t> *id)
+< {
+< 	Int_t nJets = 0, nDY = 0, nPar = 0;
+< 
+< 	Int_t nParton = ntuple->nLHEParticle;
+< 	for(Int_t i_par=0; i_par<nParton; i_par++)
+< 	{
+< 		LHE par;
+< 		par.FillFromNtuple(ntuple, i_par);
+< 		if( par.Status == 1 )
+< 		{
+< 			if( ( 0 < fabs(par.ID) && fabs(par.ID) < 7 ) || fabs(par.ID) == 21 ) // quark or gluon jet
+< 			{
+< 				nJets += 1;
+< 				id->push_back( par.ID );
+< 			}
+< 			else if( fabs(par.ID) == 11 || fabs(par.ID) == 13 || fabs(par.ID) == 15 ) // Drell-Yan to dilepton
+< 				nDY += 1;
+< 
+< 			nPar += 1;
+< 		}
+< 	}
+< 
+< 	//printf("Number of Jets = %d\n", nJets);
+< 	if( nJets > 3 ) printf("Number of Jets (above 3) = %d\n", nJets);
+< 	if( nDY != 2 ) printf("Something wrong!! Number of leptons = %d\n", nDY);
+< 	if( nDY + nJets != nPar ) printf("Something wrong!! Number of unknown things = %d\n", nPar - (nDY + nJets));
+< 
+< 	return nJets;
+< }
+< 
+1484,1491c1441
+< 					if( 0 <= ineff && ineff < 0.01 )
+< 					{
+< 						cout << "Neglect inefficiency smaller than 1%" << endl;
+< 						ineff = 1;
+< 					}
+< 
+< 					//cout << "jet Pt: " << jet.Pt << endl;
+< 					//cout << "ineff: " << ineff << endl;
+---
+> 					if( 0 <= ineff && ineff < 0.01 ) ineff = 1;
+1503d1452
+< 	cout << "total L1 pre-firing inefficiency: " << ineff_tot << endl;
+2434a2384
+> 
+2707a2658,2659
+> 
+> 
+2960a2913
+> 
+3362a3316
+> 
+3548a3503,3504
+> 
+> 
+3629a3586,3587
+> 
+> 
+3710a3669,3670
+> 
+> 
+4701a4662
+> 
+4730a4692,4694
+> 
+> 
+> 
+7878,7879c7842,7843
+< 		if( reco_M > 10 && isPassAcc == kTRUE )
+< 		//if( reco_M > 60 && reco_M < 120 && isPassAcc == kTRUE )
+---
+> 		//if( reco_M > 10 && isPassAcc == kTRUE )
+> 		if( reco_M > 60 && reco_M < 120 && isPassAcc == kTRUE )
+8635,8636c8599
+< 		//double FR[] = {0.136786,0.14009,0.141407,0.150974,0.150165,0.149583,0.155921,0.175952,0.178952,0.21048,0.229619,0.257399,0.291428,0.33897,0.439454,0.408808}; //before Oct 2018
+< 		double FR[] = {0.073598,0.0748619,0.0735089,0.0835437,0.0837622,0.0810606,0.0819881,0.0986144,0.0899716,0.114714,0.114298,0.138463,0.170341,0.188865,0.244211,0.263503};
+---
+> 		double FR[] = {0.136786,0.14009,0.141407,0.150974,0.150165,0.149583,0.155921,0.175952,0.178952,0.21048,0.229619,0.257399,0.291428,0.33897,0.439454,0.408808};
+8656,8657c8619
+< 		//double FR[] = {0.247705,0.258473,0.269076,0.263856,0.288202,0.299733,0.368072,0.514007}; //before Oct 2018
+< 		double FR[] = {0.180487,0.187814,0.205887,0.193403,0.209049,0.220315,0.307998,0.395422};
+---
+> 		double FR[] = {0.247705,0.258473,0.269076,0.263856,0.288202,0.299733,0.368072,0.514007};
+8679,8680c8641
+< 		//double FR[] = {0.122332,0.12307,0.120493,0.125579,0.122861,0.121397,0.123638,0.139503,0.139172,0.161195,0.173744,0.193982,0.223426,0.278481,0.331041,0.344017}; //before Oct 2018
+< 		double FR[] = {0.0649563,0.0648437,0.061752,0.0687284,0.0676425,0.0646986,0.0643073,0.0763119,0.0689178,0.0872131,0.0849665,0.103783,0.128793,0.148508,0.187512,0.201801};
+---
+> 		double FR[] = {0.122332,0.12307,0.120493,0.125579,0.122861,0.121397,0.123638,0.139503,0.139172,0.161195,0.173744,0.193982,0.223426,0.278481,0.331041,0.344017};
+8700,8701c8661
+< 		//double FR[] = {0.205702,0.209008,0.21444,0.203428,0.217553,0.222371,0.253883,0.347315}; //before Oct 2018
+< 		double FR[] = {0.148281,0.150428,0.162051,0.147379,0.156856,0.161871,0.212606,0.264714};
+---
+> 		double FR[] = {0.205702,0.209008,0.21444,0.203428,0.217553,0.222371,0.253883,0.347315};
+8726,8727c8686
+< 			//if( MuonCollection[j].isHighPtMuon() ) // at 30 Jul. 2018 by Dalmin
+< 			if( MuonCollection[j].isTightMuon() )
+---
+> 			if( MuonCollection[j].isHighPtMuon() ) // at 30 Jul. 2018 by Dalmin
+8729,8730c8688
+< 				//if( MuonCollection[j].trkiso < 0.10 )
+< 				if( MuonCollection[j].RelPFIso_dBeta < 0.15 )
+---
+> 				if( MuonCollection[j].trkiso < 0.10 )
+8855,8856c8813
+< 			//if( MuonCollection[j].isHighPtMuon() ) // at 30 Jul. 2018 by Dalmin
+< 			if( MuonCollection[j].isTightMuon() )
+---
+> 			if( MuonCollection[j].isHighPtMuon() ) // at 30 Jul. 2018 by Dalmin
+8858,8859c8815
+< 				//if( MuonCollection[j].trkiso < 0.10 )
+< 				if( MuonCollection[j].RelPFIso_dBeta < 0.15 )
+---
+> 				if( MuonCollection[j].trkiso < 0.10 )
+8872c8828
+< 		Muon recolep2 = FailingMuonCollection[0]; // -- second one: failing muon -- //
+---
+> 		Muon recolep2 = FailingMuonCollection[1]; // -- second one: failing muon -- //
+8884,8885c8840,8841
+< 		//TLorentzVector inner_v1 = recolep1.Momentum_Inner;
+< 		//TLorentzVector inner_v2 = recolep2.Momentum_Inner;
+---
+> 		TLorentzVector inner_v1 = recolep1.Momentum_Inner;
+> 		TLorentzVector inner_v2 = recolep2.Momentum_Inner;
+8893c8849
+< 		//if( reco_M > 10 && isPassAcc == kTRUE && Chi2/ndof(VTX) < 20 && Angle < TMath::Pi() - 0.005 )
+---
+> 		// if( reco_M > 10 && isPassAcc == kTRUE && Chi2/ndof(VTX) < 20 && Angle < TMath::Pi() - 0.005 )

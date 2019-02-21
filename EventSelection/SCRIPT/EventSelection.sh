@@ -1,8 +1,10 @@
 #!/bin/bash
 
 array_type=("[1] Run2016B" "[2] Run2016C" "[3] Run2016D" "[4] Run2016E" "[5] Run2016F" "[6] Run2016G" "[7] Run2016H"
-			"[11] DYLL_M10to50" "[12] DYLL_M50toInf" "[13] DYLL_M200toInf" "[10] ZToLL_M50to120"
-			"[21] ttbar" "[22] ttbarBackup" "[23] ttbar_M700toInf"
+			#"[11] DYLL_M10to50" "[12] DYLL_M50toInf" "[13] DYLL_M200toInf" "[10] ZToLL_M50to120"
+			"[10] DYLL_M50toInf" "[11] DYLL_M10to50" "[12] DYLL_M50to100" "[13] DYLL_M100toInf"
+			#"[21] ttbar" "[22] ttbarBackup" "[23] ttbar_M700toInf"
+			"[21] ttbar" "[22] ttbarBackup" "[23] ttbar_Mto700" "[24] ttbarBackup_Mto700" "[25] ttbar_M700toInf"
 			"[31] DYTauTau_M10to50" "[32] DYTauTau_M50toInf"
 			"[41] VVnST"
 			#"[51] WJetsToLNu"
@@ -70,10 +72,11 @@ type_mc=(12 21 22 32 41)
 #type_mc=(21 22 32 41)
 
 type_data=$(seq 1 7)
-#type_usr=(3)
-#type_usr=(1 2 5)
-#type_usr=(6 7)
+#type_usr=(12)
 type_usr=(4)
+#type_usr=(10 12 13 21)
+#type_usr=(22 23 24)
+#type_usr=(32 41)
 types=${type_usr[@]}
 
 for arg in $*; do

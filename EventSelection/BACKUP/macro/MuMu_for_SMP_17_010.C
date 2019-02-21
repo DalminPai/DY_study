@@ -64,11 +64,14 @@ static inline void loadBar(int x, int n, int r, int w);
 //                Rochester correction is updated by using gen-level muon pt
 // -- 2019.01.14: DoubleMuon PD & trigger are tested
 // -- 2019.01.17: Convention for naming output root file is slightly changed
+// -- 2019.01.23: Vetoing using loose muons was tested.(=> No effect, so keep applying)
+// -- 2019.01.24: Range of Z peak was modified using Z mass instead of 90 GeV
+// -- 2019.01.31: Change muon IDs using ID flags
 //
 //
 //void MuMu_for_SMP_17_010(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu24_OR_IsoTkMu24_for_SMP_17_010")
 //void MuMu_for_SMP_17_010(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu24_OR_IsoTkMu24_OR_Mu50_for_SMP_17_010")
-void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu22_OR_IsoTkMu22_OR_IsoMu24_OR_IsoTkMu24_OR_Mu50_for_SMP_17_010")
+void MuMu_for_SMP_17_010(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "IsoMu22_OR_IsoTkMu22_OR_IsoMu24_OR_IsoTkMu24_OR_Mu50_for_SMP_17_010")
 {
 	gROOT->SetBatch(kTRUE);
 	TString NtupleLocation = gSystem->Getenv("DM_DATA_PATH");
@@ -160,7 +163,10 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20181219_MuMu_for_SMP_17_010_with_All_SMP_17_010_Eff_SF_and_PU_and_PrefiringWeight_with_unc_"
 	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20181220_MuMu_for_SMP_17_010_with_All_SMP_17_010_Eff_SF_and_PU_and_PrefiringWeight_with_unc_and_PVz_"
 	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190107_MuMu_for_SMP_17_010_with_All_SMP_17_010_Corrections_and_Updated_RoccoR_"
-	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190117_MuMu_for_SMP_17_010_with_All_SMP_17_010_Corrections_and_Updated_RoccoR_on_"+DataType
+	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190117_MuMu_for_SMP_17_010_with_All_SMP_17_010_Corrections_and_Updated_RoccoR_on_"+DataType
+	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190123_MuMu_for_SMP_17_010_without_veto_on_"+DataType
+	//TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190124_MuMu_for_SMP_17_010_with_Zmass_on_"+DataType
+	TString Output_ROOTFile = BaseDir+"/RESULT/MuMu/ROOTFile_20190131_MuMu_IDtest_for_SMP_17_010_on_"+DataType
 					+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"+TString::Itoa(isTopPtReweighting,10)+".root";
 	if( debug ) Output_ROOTFile = "test.root";
 	TFile *f = new TFile(Output_ROOTFile, "recreate");
@@ -188,7 +194,8 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 		if( isMC == kTRUE )
 		{
 			//TString version = "v2.4";
-			TString version = "v2.5"; // for prefiring weight
+			//TString version = "v2.5"; // for prefiring weight
+			TString version = "v2.6"; // for Muon ID flags
 
 			if( remainder == 9999 )
 				chain->Add(NtupleLocation+"/"+version+"/"+ntupleDirectory[i_tup]+"/*.root");
@@ -200,22 +207,26 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 		//Set Data chain
 		else
 		{
+			//TString version = "v2.4";
+			TString version = "v2.6"; // for Muon ID flags
+
 			if( remainder == 9999 )
 			{
-				chain->Add(NtupleLocation+"/v2.4/"+DataLocation+"/*.root");
-				if(type==7) chain->Add(NtupleLocation+"/v2.4/"+DataType+"Run2016Hver3/*.root");
+				chain->Add(NtupleLocation+"/"+version+"/"+DataLocation+"/*.root");
+				if(type==7) chain->Add(NtupleLocation+"/"+version+"/"+DataType+"Run2016Hver3/*.root");
 			}
 			else
 			{
 				for(Double_t ii=1; ii<=1500; ii++)
 					if(ii - TMath::Floor(ii/Div) * Div == remainder)
-						chain->Add(NtupleLocation+"/v2.4/"+DataLocation+"/*_"+TString::Itoa(ii,10)+".root");
-				if(type==7 && remainder==0) chain->Add(NtupleLocation+"/v2.4/"+DataType+"Run2016Hver3/*.root");
+						chain->Add(NtupleLocation+"/"+version+"/"+DataLocation+"/*_"+TString::Itoa(ii,10)+".root");
+				if(type==7 && remainder==0) chain->Add(NtupleLocation+"/"+version+"/"+DataType+"Run2016Hver3/*.root");
 			}
 		}
 
 		NtupleHandle *ntuple = new NtupleHandle( chain );
 		ntuple->TurnOnBranches_Muon();
+		ntuple->TurnOnBranches_MuonIDFlags(); // for Muon ID flags
 		if( isMC == kTRUE )
 		{
 			ntuple->TurnOnBranches_GenLepton(); // for all leptons
@@ -295,15 +306,12 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 
 		Double_t SumWeight = 0, SumWeight_Separated = 0;
 
-		Int_t aa=0, bb=0; // check for RoccoR
-		Int_t cc=0; // check for DoubleMoun
-
 		Int_t NEvents = 10000; // test using small events
 		if( !debug )  NEvents = chain->GetEntries();
 		cout << "\t[Total Events: " << NEvents << "]" << endl;
 		for(Int_t i=0; i<NEvents; i++)		
 		{	
-			//loadBar(i+1, NEvents, 100, 100);
+			loadBar(i+1, NEvents, 100, 100);
 
 			ntuple->GetEvent(i);
 
@@ -398,15 +406,9 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 						Double_t genPt = analyzer->GenMuonPt("fromHardProcessFinalState", ntuple, mu);
 
 						if( genPt > 0 )
-						{
 							SF = rc.kScaleFromGenMC(mu.charge, mu.Pt, mu.eta, mu.phi, mu.trackerLayers, genPt, rndm[0], s=0, m=0);
-							aa += 1;
-						}
 						else
-						{
 							SF = rc.kScaleAndSmearMC(mu.charge, mu.Pt, mu.eta, mu.phi, mu.trackerLayers, rndm[0], rndm[1], s=0, m=0);
-							bb += 1;
-						}
 					}
 
 					mu.Pt = SF*mu.Pt;
@@ -425,10 +427,6 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 
 				if( isPassEventSelection == kTRUE )
 				{
-					cc += 1;
-					if( cc == 1 ) { cout << endl; cout << "<< Start!! >>" << endl;}
-					cout << "run: " << ntuple->runNum << "  lumi: " << ntuple->lumiBlock << "  event: " << ntuple->evtNum << endl;
-
 					Muon mu1, mu2; // lead: 1, sub: 2
 					if( SelectedMuonCollection[0].Pt > SelectedMuonCollection[1].Pt )
 					{
@@ -477,7 +475,8 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 						//h_PVz[i]->Fill( ntuple->PVz, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
 
 						//if( 60 < reco_M && reco_M < 120 )
-						if( 76 < reco_M && reco_M < 106 )
+						//if( 76 < reco_M && reco_M < 106 )
+						if( fabs( reco_M - 91.1876 ) < 15 )
 						{
 							h_Zpeak_mass[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
 							h_Zpeak_mass_fine[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
@@ -505,11 +504,6 @@ void MuMu_for_SMP_17_010_2(Int_t debug, Int_t type, Int_t remainder = 9999, Int_
 			} //End of if( isTriggered )
 
 		} //End of event iteration
-
-		//if( isMC == kTRUE ) cout << "genPt? Y: " << aa << " N: " << bb << endl; // check for RoccoR
-		cout << "<< End!! >>" << endl;
-		cout << endl;
-		cout << "# of events passing event selection: " << cc << endl; // check for DoubleMuon
 
 		for(int i=0;i<3;i++)
 		{

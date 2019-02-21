@@ -31,6 +31,9 @@ static inline void loadBar(int x, int n, int r, int w);
 // -- Prefiring weight was tested: 05 Dec. 2018 -- //
 // -- Test _prefiringweightup(down): 18 Dec. 2018 -- //
 // -- Check pt(e) in 2.25 < |eta| < 2.5 before/after prefiring reweighting: 18 Dec. 2018 -- //
+// -- Histograms were rearranged: 28 Jan. 2019 -- //
+// -- Change max |eta| value from 2.5 to 2.4: 29 Jan. 2019 -- //
+//
 void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t isTopPtReweighting = 0, TString HLTname = "Ele23Ele12")
 {
 	gROOT->SetBatch(kTRUE);
@@ -41,12 +44,6 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 	TString NtupleLocation = "/u/user/dmpai/SE_UserHome/_prime_/DYntuple";
 	TString BaseDir = "/u/user/dmpai/prime/dy_analysis/EventSelection";
 	
-	// -- Choose prefiringweight -- //
-	TString type_prefiringweight = "";
-	//type_prefiringweight = "up";
-	//type_prefiringweight = "down";
-
-
 	// -- Run2016 luminosity [/pb] -- //
 	Double_t lumi = Lumi; //BtoH
 
@@ -107,7 +104,8 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 	// -- Output ROOTFile -- //	
 	//TString Output_ROOTFile = BaseDir+"/RESULT/EE/ROOTFile_20181012_EE_PVz_reweighting_"
 	//TString Output_ROOTFile = BaseDir+"/RESULT/EE/ROOTFile_20181205_EE_PVz_reweighting_with_PrefiringWeight_"
-	TString Output_ROOTFile = BaseDir+"/RESULT/EE/ROOTFile_20181218_EE_PVz_reweighting_with_PrefiringWeight_ER_"+type_prefiringweight+"_" //ER: eta-restricted
+	//TString Output_ROOTFile = BaseDir+"/RESULT/EE/ROOTFile_20181218_EE_PVz_reweighting_with_PrefiringWeight_ER_"+type_prefiringweight+"_" //ER: eta-restricted
+	TString Output_ROOTFile = BaseDir+"/RESULT/EE/ROOTFile_20190129_EE_PVz_reweighting_with_PrefiringWeight_ER_" //ER: eta-restricted
 					+TString::Itoa(type,10)+"_"+TString::Itoa(remainder,10)+"_"+TString::Itoa(isTopPtReweighting,10)+".root";
 	if( debug ) Output_ROOTFile = "test.root";
 	TFile *f = new TFile(Output_ROOTFile, "recreate");
@@ -174,159 +172,84 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 		////////////////////////////
 		// -- Making Histogram -- //
 		////////////////////////////
+		vector<TString> wtype; wtype.push_back(""); wtype.push_back("up_"); wtype.push_back("down_");
+
 		// -- Reco-level -- //
-		TH1D *h_mass = new TH1D("h_mass_"+Tag[i_tup], "", 43, massbins);
-		TH1D *h_mass_fine = new TH1D("h_mass_fine_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_diPt = new TH1D("h_diPt_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_rapi = new TH1D("h_rapi_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_pT = new TH1D("h_pT_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_leadPt = (TH1D*)h_pT->Clone("h_leadPt_"+Tag[i_tup]);
-		TH1D *h_subPt = (TH1D*)h_pT->Clone("h_subPt_"+Tag[i_tup]);
-		TH1D *h_eta = new TH1D("h_eta_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_leadEta = (TH1D*)h_eta->Clone("h_leadEta_"+Tag[i_tup]);
-		TH1D *h_subEta = (TH1D*)h_eta->Clone("h_subEta_"+Tag[i_tup]);
-		TH1D *h_etaSC = (TH1D*)h_eta->Clone("h_etaSC_"+Tag[i_tup]);
-		TH1D *h_leadEtaSC = (TH1D*)h_eta->Clone("h_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_subEtaSC = (TH1D*)h_eta->Clone("h_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_phi = new TH1D("h_phi_"+Tag[i_tup], "", 100, -5, 5);
-		TH1D *h_leadPhi = (TH1D*)h_phi->Clone("h_leadPhi_"+Tag[i_tup]);
-		TH1D *h_subPhi = (TH1D*)h_phi->Clone("h_subPhi_"+Tag[i_tup]);
-		TH1D *h_PVz = new TH1D("h_PVz_"+Tag[i_tup], "", 100, -25, 25);
-
-		// Dilepton pT cut: 30GeV
-		TH1D *h_PtCut_mass = (TH1D*)h_mass->Clone("h_PtCut_mass_"+Tag[i_tup]);
-		TH1D *h_PtCut_mass_fine = (TH1D*)h_mass_fine->Clone("h_PtCut_mass_fine_"+Tag[i_tup]);
-		TH1D *h_PtCut_diPt = (TH1D*)h_diPt->Clone("h_PtCut_diPt_"+Tag[i_tup]);
-		TH1D *h_PtCut_rapi = (TH1D*)h_rapi->Clone("h_PtCut_rapi_"+Tag[i_tup]);
-		TH1D *h_PtCut_pT = (TH1D*)h_pT->Clone("h_PtCut_pT_"+Tag[i_tup]);
-		TH1D *h_PtCut_leadPt = (TH1D*)h_pT->Clone("h_PtCut_leadPt_"+Tag[i_tup]);
-		TH1D *h_PtCut_subPt = (TH1D*)h_pT->Clone("h_PtCut_subPt_"+Tag[i_tup]);
-		TH1D *h_PtCut_eta = (TH1D*)h_eta->Clone("h_PtCut_eta_"+Tag[i_tup]);
-		TH1D *h_PtCut_leadEta = (TH1D*)h_eta->Clone("h_PtCut_leadEta_"+Tag[i_tup]);
-		TH1D *h_PtCut_subEta = (TH1D*)h_eta->Clone("h_PtCut_subEta_"+Tag[i_tup]);
-		TH1D *h_PtCut_etaSC = (TH1D*)h_eta->Clone("h_PtCut_etaSC_"+Tag[i_tup]);
-		TH1D *h_PtCut_leadEtaSC = (TH1D*)h_eta->Clone("h_PtCut_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_PtCut_subEtaSC = (TH1D*)h_eta->Clone("h_PtCut_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_PtCut_phi = (TH1D*)h_phi->Clone("h_PtCut_phi_"+Tag[i_tup]);
-		TH1D *h_PtCut_leadPhi = (TH1D*)h_phi->Clone("h_PtCut_leadPhi_"+Tag[i_tup]);
-		TH1D *h_PtCut_subPhi = (TH1D*)h_phi->Clone("h_PtCut_subPhi_"+Tag[i_tup]);
-		TH1D *h_PtCut_PVz = (TH1D*)h_PVz->Clone("h_PtCut_PVz_"+Tag[i_tup]);
-
-		// 2D measurement
-		TH1D *h_M20to30_rapi = (TH1D*)h_rapi->Clone("h_M20to30_rapi_"+Tag[i_tup]);
-		TH1D *h_M30to45_rapi = (TH1D*)h_rapi->Clone("h_M30to45_rapi_"+Tag[i_tup]);
-		TH1D *h_M45to60_rapi = (TH1D*)h_rapi->Clone("h_M45to60_rapi_"+Tag[i_tup]);
-		TH1D *h_M60to120_rapi = (TH1D*)h_rapi->Clone("h_M60to120_rapi_"+Tag[i_tup]);
-		TH1D *h_M120to200_rapi = (TH1D*)h_rapi->Clone("h_M120to200_rapi_"+Tag[i_tup]);
-		TH1D *h_M200to1500_rapi = (TH1D*)h_rapi->Clone("h_M200to1500_rapi_"+Tag[i_tup]);
+		TH1D *h_mass[3];
+		TH1D *h_mass_fine[3];
+		TH1D *h_diPt[3];
+		TH1D *h_rapi[3];
+		TH1D *h_pT[3];
+		TH1D *h_leadPt[3];
+		TH1D *h_subPt[3];
+		TH1D *h_eta[3];
+		TH1D *h_leadEta[3];
+		TH1D *h_subEta[3];
+		TH1D *h_etaSC[3];
+		TH1D *h_leadEtaSC[3];
+		TH1D *h_subEtaSC[3];
+		TH1D *h_phi[3];
+		TH1D *h_leadPhi[3];
+		TH1D *h_subPhi[3];
+		TH1D *h_PVz[3];
 
 		// -- Reco-level in Z-peak -- //
-		TH1D *h_Zpeak_mass = (TH1D*)h_mass->Clone("h_Zpeak_mass_"+Tag[i_tup]);
-		TH1D *h_Zpeak_mass_fine = (TH1D*)h_mass_fine->Clone("h_Zpeak_mass_fine_"+Tag[i_tup]);
-		TH1D *h_Zpeak_diPt = (TH1D*)h_diPt->Clone("h_Zpeak_diPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_rapi = (TH1D*)h_rapi->Clone("h_Zpeak_rapi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_pT = (TH1D*)h_pT->Clone("h_Zpeak_pT_"+Tag[i_tup]);
-		TH1D *h_Zpeak_leadPt = (TH1D*)h_pT->Clone("h_Zpeak_leadPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_subPt = (TH1D*)h_pT->Clone("h_Zpeak_subPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_eta = (TH1D*)h_eta->Clone("h_Zpeak_eta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_leadEta = (TH1D*)h_eta->Clone("h_Zpeak_leadEta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_subEta = (TH1D*)h_eta->Clone("h_Zpeak_subEta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_etaSC = (TH1D*)h_eta->Clone("h_Zpeak_etaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_leadEtaSC = (TH1D*)h_eta->Clone("h_Zpeak_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_subEtaSC = (TH1D*)h_eta->Clone("h_Zpeak_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_phi = (TH1D*)h_phi->Clone("h_Zpeak_phi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_leadPhi = (TH1D*)h_phi->Clone("h_Zpeak_leadPhi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_subPhi = (TH1D*)h_phi->Clone("h_Zpeak_subPhi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PVz = (TH1D*)h_PVz->Clone("h_Zpeak_PVz_"+Tag[i_tup]);
+		TH1D *h_Zpeak_mass[3];
+		TH1D *h_Zpeak_mass_fine[3];
+		TH1D *h_Zpeak_diPt[3];
+		TH1D *h_Zpeak_rapi[3];
+		TH1D *h_Zpeak_pT[3];
+		TH1D *h_Zpeak_leadPt[3];
+		TH1D *h_Zpeak_subPt[3];
+		TH1D *h_Zpeak_eta[3];
+		TH1D *h_Zpeak_leadEta[3];
+		TH1D *h_Zpeak_subEta[3];
+		TH1D *h_Zpeak_etaSC[3];
+		TH1D *h_Zpeak_leadEtaSC[3];
+		TH1D *h_Zpeak_subEtaSC[3];
+		TH1D *h_Zpeak_phi[3];
+		TH1D *h_Zpeak_leadPhi[3];
+		TH1D *h_Zpeak_subPhi[3];
+		TH1D *h_Zpeak_PVz[3];
 
-		// Dilepton pT cut: 30GeV
-		TH1D *h_Zpeak_PtCut_mass = (TH1D*)h_mass->Clone("h_Zpeak_PtCut_mass_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_mass_fine = (TH1D*)h_mass_fine->Clone("h_Zpeak_PtCut_mass_fine_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_diPt = (TH1D*)h_diPt->Clone("h_Zpeak_PtCut_diPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_rapi = (TH1D*)h_rapi->Clone("h_Zpeak_PtCut_rapi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_pT = (TH1D*)h_pT->Clone("h_Zpeak_PtCut_pT_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_leadPt = (TH1D*)h_pT->Clone("h_Zpeak_PtCut_leadPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_subPt = (TH1D*)h_pT->Clone("h_Zpeak_PtCut_subPt_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_eta = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_eta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_leadEta = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_leadEta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_subEta = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_subEta_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_etaSC = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_etaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_leadEtaSC = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_subEtaSC = (TH1D*)h_eta->Clone("h_Zpeak_PtCut_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_phi = (TH1D*)h_phi->Clone("h_Zpeak_PtCut_phi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_leadPhi = (TH1D*)h_phi->Clone("h_Zpeak_PtCut_leadPhi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_subPhi = (TH1D*)h_phi->Clone("h_Zpeak_PtCut_subPhi_"+Tag[i_tup]);
-		TH1D *h_Zpeak_PtCut_PVz = (TH1D*)h_PVz->Clone("h_Zpeak_PtCut_PVz_"+Tag[i_tup]);
+		for(int i=0;i<3;i++)
+		{	
+			h_mass[i] = new TH1D("h_mass_"+wtype[i]+Tag[i_tup], "", 43, massbins);
+			h_mass_fine[i] = new TH1D("h_mass_fine_"+wtype[i]+Tag[i_tup], "", 10000, 0, 10000);
+			h_diPt[i] = new TH1D("h_diPt_"+wtype[i]+Tag[i_tup], "", 10000, 0, 10000);
+			h_rapi[i] = new TH1D("h_rapi_"+wtype[i]+Tag[i_tup], "", 1000, -5, 5);
+			h_pT[i] = new TH1D("h_pT_"+wtype[i]+Tag[i_tup], "", 10000, 0, 10000);
+			h_leadPt[i] = (TH1D*)h_pT[i]->Clone("h_leadPt_"+wtype[i]+Tag[i_tup]);
+			h_subPt[i] = (TH1D*)h_pT[i]->Clone("h_subPt_"+wtype[i]+Tag[i_tup]);
+			h_eta[i] = new TH1D("h_eta_"+wtype[i]+Tag[i_tup], "", 1000, -5, 5);
+			h_leadEta[i] = (TH1D*)h_eta[i]->Clone("h_leadEta_"+wtype[i]+Tag[i_tup]);
+			h_subEta[i] = (TH1D*)h_eta[i]->Clone("h_subEta_"+wtype[i]+Tag[i_tup]);
+			h_etaSC[i] = new TH1D("h_etaSC_"+wtype[i]+Tag[i_tup], "", 1000, -5, 5);
+			h_leadEtaSC[i] = (TH1D*)h_etaSC[i]->Clone("h_leadEtaSC_"+wtype[i]+Tag[i_tup]);
+			h_subEtaSC[i] = (TH1D*)h_etaSC[i]->Clone("h_subEtaSC_"+wtype[i]+Tag[i_tup]);
+			h_phi[i] = new TH1D("h_phi_"+wtype[i]+Tag[i_tup], "", 100, -5, 5);
+			h_leadPhi[i] = (TH1D*)h_phi[i]->Clone("h_leadPhi_"+wtype[i]+Tag[i_tup]);
+			h_subPhi[i] = (TH1D*)h_phi[i]->Clone("h_subPhi_"+wtype[i]+Tag[i_tup]);
+			h_PVz[i] = new TH1D("h_PVz_"+wtype[i]+Tag[i_tup], "", 100, -25, 25);
 
-		//without any corrections
-		TH1D *h_raw_mass_fine = new TH1D("h_raw_mass_fine_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_raw_diPt = new TH1D("h_raw_diPt_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_raw_rapi = new TH1D("h_raw_rapi_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_raw_pT = new TH1D("h_raw_pT_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_raw_leadPt = (TH1D*)h_raw_pT->Clone("h_raw_leadPt_"+Tag[i_tup]);
-		TH1D *h_raw_subPt = (TH1D*)h_raw_pT->Clone("h_raw_subPt_"+Tag[i_tup]);
-		TH1D *h_raw_eta = new TH1D("h_raw_eta_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_raw_leadEta = (TH1D*)h_raw_eta->Clone("h_raw_leadEta_"+Tag[i_tup]);
-		TH1D *h_raw_subEta = (TH1D*)h_raw_eta->Clone("h_raw_subEta_"+Tag[i_tup]);
-		TH1D *h_raw_etaSC = (TH1D*)h_raw_eta->Clone("h_raw_etaSC_"+Tag[i_tup]);
-		TH1D *h_raw_leadEtaSC = (TH1D*)h_raw_eta->Clone("h_raw_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_raw_subEtaSC = (TH1D*)h_raw_eta->Clone("h_raw_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_raw_phi = new TH1D("h_raw_phi_"+Tag[i_tup], "", 100, -5, 5);
-		TH1D *h_raw_leadPhi = (TH1D*)h_raw_phi->Clone("h_raw_leadPhi_"+Tag[i_tup]);
-		TH1D *h_raw_subPhi = (TH1D*)h_raw_phi->Clone("h_raw_subPhi_"+Tag[i_tup]);
-
-		//add pileup reweighting
-		TH1D *h_pu_mass_fine = new TH1D("h_pu_mass_fine_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_pu_diPt = new TH1D("h_pu_diPt_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_pu_rapi = new TH1D("h_pu_rapi_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_pu_pT = new TH1D("h_pu_pT_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_pu_leadPt = (TH1D*)h_pu_pT->Clone("h_pu_leadPt_"+Tag[i_tup]);
-		TH1D *h_pu_subPt = (TH1D*)h_pu_pT->Clone("h_pu_subPt_"+Tag[i_tup]);
-		TH1D *h_pu_eta = new TH1D("h_pu_eta_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_pu_leadEta = (TH1D*)h_pu_eta->Clone("h_pu_leadEta_"+Tag[i_tup]);
-		TH1D *h_pu_subEta = (TH1D*)h_pu_eta->Clone("h_pu_subEta_"+Tag[i_tup]);
-		TH1D *h_pu_etaSC = (TH1D*)h_pu_eta->Clone("h_pu_etaSC_"+Tag[i_tup]);
-		TH1D *h_pu_leadEtaSC = (TH1D*)h_pu_eta->Clone("h_pu_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_pu_subEtaSC = (TH1D*)h_pu_eta->Clone("h_pu_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_pu_phi = new TH1D("h_pu_phi_"+Tag[i_tup], "", 100, -5, 5);
-		TH1D *h_pu_leadPhi = (TH1D*)h_pu_phi->Clone("h_pu_leadPhi_"+Tag[i_tup]);
-		TH1D *h_pu_subPhi = (TH1D*)h_pu_phi->Clone("h_pu_subPhi_"+Tag[i_tup]);
-
-		//add energy scale correction
-		TH1D *h_es_mass_fine = new TH1D("h_es_mass_fine_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_es_diPt = new TH1D("h_es_diPt_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_es_rapi = new TH1D("h_es_rapi_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_es_pT = new TH1D("h_es_pT_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_es_leadPt = (TH1D*)h_es_pT->Clone("h_es_leadPt_"+Tag[i_tup]);
-		TH1D *h_es_subPt = (TH1D*)h_es_pT->Clone("h_es_subPt_"+Tag[i_tup]);
-		TH1D *h_es_eta = new TH1D("h_es_eta_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_es_leadEta = (TH1D*)h_es_eta->Clone("h_es_leadEta_"+Tag[i_tup]);
-		TH1D *h_es_subEta = (TH1D*)h_es_eta->Clone("h_es_subEta_"+Tag[i_tup]);
-		TH1D *h_es_etaSC = (TH1D*)h_es_eta->Clone("h_es_etaSC_"+Tag[i_tup]);
-		TH1D *h_es_leadEtaSC = (TH1D*)h_es_eta->Clone("h_es_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_es_subEtaSC = (TH1D*)h_es_eta->Clone("h_es_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_es_phi = new TH1D("h_es_phi_"+Tag[i_tup], "", 100, -5, 5);
-		TH1D *h_es_leadPhi = (TH1D*)h_es_phi->Clone("h_es_leadPhi_"+Tag[i_tup]);
-		TH1D *h_es_subPhi = (TH1D*)h_es_phi->Clone("h_es_subPhi_"+Tag[i_tup]);
-
-		//add efficiency scale factor
-		TH1D *h_eff_mass_fine = new TH1D("h_eff_mass_fine_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_eff_diPt = new TH1D("h_eff_diPt_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_eff_rapi = new TH1D("h_eff_rapi_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_eff_pT = new TH1D("h_eff_pT_"+Tag[i_tup], "", 10000, 0, 10000);
-		TH1D *h_eff_leadPt = (TH1D*)h_eff_pT->Clone("h_eff_leadPt_"+Tag[i_tup]);
-		TH1D *h_eff_subPt = (TH1D*)h_eff_pT->Clone("h_eff_subPt_"+Tag[i_tup]);
-		TH1D *h_eff_eta = new TH1D("h_eff_eta_"+Tag[i_tup], "", 1000, -5, 5);
-		TH1D *h_eff_leadEta = (TH1D*)h_eff_eta->Clone("h_eff_leadEta_"+Tag[i_tup]);
-		TH1D *h_eff_subEta = (TH1D*)h_eff_eta->Clone("h_eff_subEta_"+Tag[i_tup]);
-		TH1D *h_eff_etaSC = (TH1D*)h_eff_eta->Clone("h_eff_etaSC_"+Tag[i_tup]);
-		TH1D *h_eff_leadEtaSC = (TH1D*)h_eff_eta->Clone("h_eff_leadEtaSC_"+Tag[i_tup]);
-		TH1D *h_eff_subEtaSC = (TH1D*)h_eff_eta->Clone("h_eff_subEtaSC_"+Tag[i_tup]);
-		TH1D *h_eff_phi = new TH1D("h_eff_phi_"+Tag[i_tup], "", 100, -5, 5);
-		TH1D *h_eff_leadPhi = (TH1D*)h_eff_phi->Clone("h_eff_leadPhi_"+Tag[i_tup]);
-		TH1D *h_eff_subPhi = (TH1D*)h_eff_phi->Clone("h_eff_subPhi_"+Tag[i_tup]);
-		TH1D *h_eff_PVz = (TH1D*)h_PVz->Clone("h_eff_PVz_"+Tag[i_tup]);
-
+			h_Zpeak_mass[i] = (TH1D*)h_mass[i]->Clone("h_Zpeak_mass_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_mass_fine[i] = (TH1D*)h_mass_fine[i]->Clone("h_Zpeak_mass_fine_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_diPt[i] = (TH1D*)h_diPt[i]->Clone("h_Zpeak_diPt_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_rapi[i] = (TH1D*)h_rapi[i]->Clone("h_Zpeak_rapi_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_pT[i] = (TH1D*)h_pT[i]->Clone("h_Zpeak_pT_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_leadPt[i] = (TH1D*)h_pT[i]->Clone("h_Zpeak_leadPt_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_subPt[i] = (TH1D*)h_pT[i]->Clone("h_Zpeak_subPt_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_eta[i] = (TH1D*)h_eta[i]->Clone("h_Zpeak_eta_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_leadEta[i] = (TH1D*)h_eta[i]->Clone("h_Zpeak_leadEta_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_subEta[i] = (TH1D*)h_eta[i]->Clone("h_Zpeak_subEta_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_etaSC[i] = (TH1D*)h_etaSC[i]->Clone("h_Zpeak_etaSC_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_leadEtaSC[i] = (TH1D*)h_etaSC[i]->Clone("h_Zpeak_leadEtaSC_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_subEtaSC[i] = (TH1D*)h_etaSC[i]->Clone("h_Zpeak_subEtaSC_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_phi[i] = (TH1D*)h_phi[i]->Clone("h_Zpeak_phi_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_leadPhi[i] = (TH1D*)h_phi[i]->Clone("h_Zpeak_leadPhi_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_subPhi[i] = (TH1D*)h_phi[i]->Clone("h_Zpeak_subPhi_"+wtype[i]+Tag[i_tup]);
+			h_Zpeak_PVz[i] = (TH1D*)h_PVz[i]->Clone("h_Zpeak_PVz_"+wtype[i]+Tag[i_tup]);
+		}
 
 		Double_t SumWeight = 0, SumWeight_Separated = 0;
 
@@ -356,12 +279,16 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 			if( isMC == kTRUE ) PVzWeight = analyzer->PVzWeightValue_80X( ntuple->PVz );
 
 			// -- Prefiring weight -- //
-			Double_t PrefiringWeight = 1;
+			Double_t PrefiringWeight[3];
+
+			for(int i=0;i<3;i++)
+				PrefiringWeight[i] = 1;
+
 			if( isMC == kTRUE )
 			{
-				if( type_prefiringweight == "" ) PrefiringWeight = ntuple->_prefiringweight;
-				else if( type_prefiringweight == "up" ) PrefiringWeight = ntuple->_prefiringweightup;
-				else if( type_prefiringweight == "down" ) PrefiringWeight = ntuple->_prefiringweightdown;
+				PrefiringWeight[0] = ntuple->_prefiringweight;
+				PrefiringWeight[1] = ntuple->_prefiringweightup;
+				PrefiringWeight[2] = ntuple->_prefiringweightdown;
 			}
 
 			// -- efficiency weights -- //
@@ -396,10 +323,6 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 			// -- Normalization -- //
 			Double_t TotWeight = GenWeight;
 			if( isMC == kTRUE ) TotWeight = (lumi*Xsec[i_tup]/nEvents[i_tup])*GenWeight;
-
-
-			TotWeight *= PrefiringWeight; // multiply prefiring weight
-
 
 			////////////////////////////////
 			// -- Reco level selection -- //
@@ -448,371 +371,102 @@ void EE_PVz_20181012_3(Int_t debug, Int_t type, Int_t remainder = 9999, Int_t is
 						effweight = analyzer->EfficiencySF_EventWeight_electron( ele1, ele2 );
 					}
 
-					h_mass->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-					h_mass_fine->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-					h_diPt->Fill( reco_Pt, TotWeight * PVzWeight * PUWeight * effweight );
-					h_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					h_pT->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-					h_pT->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-					h_eta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-					h_eta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-					h_etaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-					h_etaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-					h_phi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-					h_phi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-					h_leadPt->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-					h_leadEta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-					h_leadEtaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-					h_leadPhi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-					h_subPt->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-					h_subEta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-					h_subEtaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-					h_subPhi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-					h_PVz->Fill( ntuple->PVz, TotWeight * PVzWeight * PUWeight * effweight );
-
-					// Dilepton pT cut : 30GeV
-					if( 30 < reco_Pt )
+					for(int i=0;i<3;i++)
 					{
-						h_PtCut_mass->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_mass_fine->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_diPt->Fill( reco_Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_pT->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_pT->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_eta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_eta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_etaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_etaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_phi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_phi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_leadPt->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_leadEta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_leadEtaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_leadPhi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_subPt->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_subEta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_subEtaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_subPhi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_PtCut_PVz->Fill( ntuple->PVz, TotWeight * PVzWeight * PUWeight * effweight );
-					}
+						h_mass[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_mass_fine[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_diPt[i]->Fill( reco_Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_rapi[i]->Fill( reco_rapi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_pT[i]->Fill( ele1.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_pT[i]->Fill( ele2.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_eta[i]->Fill( ele1.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_eta[i]->Fill( ele2.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_etaSC[i]->Fill( ele1.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_etaSC[i]->Fill( ele2.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_phi[i]->Fill( ele1.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_phi[i]->Fill( ele2.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
 
-					// 2D measurement
-					if( 20 < reco_M && reco_M < 30 ) h_M20to30_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					else if( 30 < reco_M && reco_M < 45 ) h_M30to45_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					else if( 45 < reco_M && reco_M < 60 ) h_M45to60_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					else if( 60 < reco_M && reco_M < 120 ) h_M60to120_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					else if( 120 < reco_M && reco_M < 200 ) h_M120to200_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-					else if( 200 < reco_M && reco_M < 1500 ) h_M200to1500_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
+						h_leadPt[i]->Fill( ele1.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_leadEta[i]->Fill( ele1.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_leadEtaSC[i]->Fill( ele1.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_leadPhi[i]->Fill( ele1.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_subPt[i]->Fill( ele2.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_subEta[i]->Fill( ele2.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_subEtaSC[i]->Fill( ele2.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_subPhi[i]->Fill( ele2.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						h_PVz[i]->Fill( ntuple->PVz, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
 
-					if( 60 < reco_M && reco_M < 120 )
-					{
-						h_Zpeak_mass->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_mass_fine->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_diPt->Fill( reco_Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_pT->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_pT->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_eta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_eta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_etaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_etaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_phi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_phi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_leadPt->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_leadEta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_leadEtaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_leadPhi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_subPt->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_subEta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_subEtaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_subPhi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-						h_Zpeak_PVz->Fill( ntuple->PVz, TotWeight * PVzWeight * PUWeight * effweight );
-
-						// Dilepton pT cut : 30GeV
-						if( 30 < reco_Pt )
+						if( 60 < reco_M && reco_M < 120 )
 						{
-							h_Zpeak_PtCut_mass->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_mass_fine->Fill( reco_M, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_diPt->Fill( reco_Pt, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_rapi->Fill( reco_rapi, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_pT->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_pT->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_eta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_eta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_etaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_etaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_phi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_phi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_leadPt->Fill( ele1.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_leadEta->Fill( ele1.eta, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_leadEtaSC->Fill( ele1.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_leadPhi->Fill( ele1.phi, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_subPt->Fill( ele2.Pt, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_subEta->Fill( ele2.eta, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_subEtaSC->Fill( ele2.etaSC, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_subPhi->Fill( ele2.phi, TotWeight * PVzWeight * PUWeight * effweight );
-							h_Zpeak_PtCut_PVz->Fill( ntuple->PVz, TotWeight * PVzWeight * PUWeight * effweight );
-						}
+							h_Zpeak_mass[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_mass_fine[i]->Fill( reco_M, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_diPt[i]->Fill( reco_Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_rapi[i]->Fill( reco_rapi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_pT[i]->Fill( ele1.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_pT[i]->Fill( ele2.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_eta[i]->Fill( ele1.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_eta[i]->Fill( ele2.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_etaSC[i]->Fill( ele1.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_etaSC[i]->Fill( ele2.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_phi[i]->Fill( ele1.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_phi[i]->Fill( ele2.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
 
-						h_eff_mass_fine->Fill( reco_M, TotWeight * PUWeight * effweight );
-						h_eff_diPt->Fill( reco_Pt, TotWeight * PUWeight * effweight );
-						h_eff_rapi->Fill( reco_rapi, TotWeight * PUWeight * effweight );
-						h_eff_pT->Fill( ele1.Pt, TotWeight * PUWeight * effweight );
-						h_eff_pT->Fill( ele2.Pt, TotWeight * PUWeight * effweight );
-						h_eff_eta->Fill( ele1.eta, TotWeight * PUWeight * effweight );
-						h_eff_eta->Fill( ele2.eta, TotWeight * PUWeight * effweight );
-						h_eff_etaSC->Fill( ele1.etaSC, TotWeight * PUWeight * effweight );
-						h_eff_etaSC->Fill( ele2.etaSC, TotWeight * PUWeight * effweight );
-						h_eff_phi->Fill( ele1.phi, TotWeight * PUWeight * effweight );
-						h_eff_phi->Fill( ele2.phi, TotWeight * PUWeight * effweight );
-						h_eff_leadPt->Fill( ele1.Pt, TotWeight * PUWeight * effweight );
-						h_eff_leadEta->Fill( ele1.eta, TotWeight * PUWeight * effweight );
-						h_eff_leadEtaSC->Fill( ele1.etaSC, TotWeight * PUWeight * effweight );
-						h_eff_leadPhi->Fill( ele1.phi, TotWeight * PUWeight * effweight );
-						h_eff_subPt->Fill( ele2.Pt, TotWeight * PUWeight * effweight );
-						h_eff_subEta->Fill( ele2.eta, TotWeight * PUWeight * effweight );
-						h_eff_subEtaSC->Fill( ele2.etaSC, TotWeight * PUWeight * effweight );
-						h_eff_subPhi->Fill( ele2.phi, TotWeight * PUWeight * effweight );
-						h_eff_PVz->Fill( ntuple->PVz, TotWeight * PUWeight * effweight );
-
-						h_es_mass_fine->Fill( reco_M, TotWeight * PUWeight );
-						h_es_diPt->Fill( reco_Pt, TotWeight * PUWeight );
-						h_es_rapi->Fill( reco_rapi, TotWeight * PUWeight );
-						h_es_pT->Fill( ele1.Pt, TotWeight * PUWeight );
-						h_es_pT->Fill( ele2.Pt, TotWeight * PUWeight );
-						h_es_eta->Fill( ele1.eta, TotWeight * PUWeight );
-						h_es_eta->Fill( ele2.eta, TotWeight * PUWeight );
-						h_es_etaSC->Fill( ele1.etaSC, TotWeight * PUWeight );
-						h_es_etaSC->Fill( ele2.etaSC, TotWeight * PUWeight );
-						h_es_phi->Fill( ele1.phi, TotWeight * PUWeight );
-						h_es_phi->Fill( ele2.phi, TotWeight * PUWeight );
-						h_es_leadPt->Fill( ele1.Pt, TotWeight * PUWeight );
-						h_es_leadEta->Fill( ele1.eta, TotWeight * PUWeight );
-						h_es_leadEtaSC->Fill( ele1.etaSC, TotWeight * PUWeight );
-						h_es_leadPhi->Fill( ele1.phi, TotWeight * PUWeight );
-						h_es_subPt->Fill( ele2.Pt, TotWeight * PUWeight );
-						h_es_subEta->Fill( ele2.eta, TotWeight * PUWeight );
-						h_es_subEtaSC->Fill( ele2.etaSC, TotWeight * PUWeight );
-						h_es_subPhi->Fill( ele2.phi, TotWeight * PUWeight );
-					} // End of Z-peak
+							h_Zpeak_leadPt[i]->Fill( ele1.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_leadEta[i]->Fill( ele1.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_leadEtaSC[i]->Fill( ele1.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_leadPhi[i]->Fill( ele1.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_subPt[i]->Fill( ele2.Pt, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_subEta[i]->Fill( ele2.eta, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_subEtaSC[i]->Fill( ele2.etaSC, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_subPhi[i]->Fill( ele2.phi, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+							h_Zpeak_PVz[i]->Fill( ntuple->PVz, TotWeight * PUWeight * effweight * PrefiringWeight[i] * PVzWeight );
+						} //End of Z-peak
+					}
 
 				} //End of event selection
-
-				// -- Event Selection without electron energy scale corrections -- //
-				vector< Electron > SelectedElectronCollection0;
-				Bool_t isPassEventSelection0 = kFALSE;
-				isPassEventSelection0 = analyzer->EventSelection_ElectronChannel0(ElectronCollection, ntuple, &SelectedElectronCollection0);
-
-				if( isPassEventSelection0 == kTRUE )
-				{
-					Electron ele1, ele2; // lead: 1, sub: 2
-					if( SelectedElectronCollection0[0].pTUnCorr > SelectedElectronCollection0[1].pTUnCorr )
-					{
-						ele1 = SelectedElectronCollection0[0];
-						ele2 = SelectedElectronCollection0[1];
-					}
-					else
-					{
-						ele1 = SelectedElectronCollection0[1];
-						ele2 = SelectedElectronCollection0[0];
-					}
-
-					Double_t reco_M = (ele1.Momentum_UnCorr + ele2.Momentum_UnCorr).M();
-					Double_t reco_Pt = (ele1.Momentum_UnCorr + ele2.Momentum_UnCorr).Pt();
-					Double_t reco_rapi = (ele1.Momentum_UnCorr + ele2.Momentum_UnCorr).Rapidity();
-
-					if( 60 < reco_M && reco_M < 120 )
-					{
-						h_raw_mass_fine->Fill( reco_M, TotWeight );
-						h_raw_diPt->Fill( reco_Pt, TotWeight );
-						h_raw_rapi->Fill( reco_rapi, TotWeight );
-						h_raw_pT->Fill( ele1.Pt, TotWeight );
-						h_raw_pT->Fill( ele2.Pt, TotWeight );
-						h_raw_eta->Fill( ele1.eta, TotWeight );
-						h_raw_eta->Fill( ele2.eta, TotWeight );
-						h_raw_etaSC->Fill( ele1.etaSC, TotWeight );
-						h_raw_etaSC->Fill( ele2.etaSC, TotWeight );
-						h_raw_phi->Fill( ele1.phi, TotWeight );
-						h_raw_phi->Fill( ele2.phi, TotWeight );
-						h_raw_leadPt->Fill( ele1.Pt, TotWeight );
-						h_raw_leadEta->Fill( ele1.eta, TotWeight );
-						h_raw_leadEtaSC->Fill( ele1.etaSC, TotWeight );
-						h_raw_leadPhi->Fill( ele1.phi, TotWeight );
-						h_raw_subPt->Fill( ele2.Pt, TotWeight );
-						h_raw_subEta->Fill( ele2.eta, TotWeight );
-						h_raw_subEtaSC->Fill( ele2.etaSC, TotWeight );
-						h_raw_subPhi->Fill( ele2.phi, TotWeight );
-
-						h_pu_mass_fine->Fill( reco_M, TotWeight * PUWeight );
-						h_pu_diPt->Fill( reco_Pt, TotWeight * PUWeight );
-						h_pu_rapi->Fill( reco_rapi, TotWeight * PUWeight );
-						h_pu_pT->Fill( ele1.Pt, TotWeight * PUWeight );
-						h_pu_pT->Fill( ele2.Pt, TotWeight * PUWeight );
-						h_pu_eta->Fill( ele1.eta, TotWeight * PUWeight );
-						h_pu_eta->Fill( ele2.eta, TotWeight * PUWeight );
-						h_pu_etaSC->Fill( ele1.etaSC, TotWeight * PUWeight );
-						h_pu_etaSC->Fill( ele2.etaSC, TotWeight * PUWeight );
-						h_pu_phi->Fill( ele1.phi, TotWeight * PUWeight );
-						h_pu_phi->Fill( ele2.phi, TotWeight * PUWeight );
-						h_pu_leadPt->Fill( ele1.Pt, TotWeight * PUWeight );
-						h_pu_leadEta->Fill( ele1.eta, TotWeight * PUWeight );
-						h_pu_leadEtaSC->Fill( ele1.etaSC, TotWeight * PUWeight );
-						h_pu_leadPhi->Fill( ele1.phi, TotWeight * PUWeight );
-						h_pu_subPt->Fill( ele2.Pt, TotWeight * PUWeight );
-						h_pu_subEta->Fill( ele2.eta, TotWeight * PUWeight );
-						h_pu_subEtaSC->Fill( ele2.etaSC, TotWeight * PUWeight );
-						h_pu_subPhi->Fill( ele2.phi, TotWeight * PUWeight );
-					} //End of Z-peak
-
-				} //End of event selection without electron energy scale correction
 
 			} //End of if( isTriggered )
 
 		} //End of event iteration
 
-		h_mass->Write();
-		h_mass_fine->Write();
-		h_diPt->Write();
-		h_rapi->Write();
-		h_pT->Write();
-		h_leadPt->Write();
-		h_subPt->Write();
-		h_eta->Write();
-		h_leadEta->Write();
-		h_subEta->Write();
-		h_etaSC->Write();
-		h_leadEtaSC->Write();
-		h_subEtaSC->Write();
-		h_phi->Write();
-		h_leadPhi->Write();
-		h_subPhi->Write();
-		h_PVz->Write();
+		for(int i=0;i<3;i++)
+		{
+			h_mass[i]->Write();
+			h_mass_fine[i]->Write();
+			h_diPt[i]->Write();
+			h_rapi[i]->Write();
+			h_pT[i]->Write();
+			h_leadPt[i]->Write();
+			h_subPt[i]->Write();
+			h_eta[i]->Write();
+			h_leadEta[i]->Write();
+			h_subEta[i]->Write();
+			h_etaSC[i]->Write();
+			h_leadEtaSC[i]->Write();
+			h_subEtaSC[i]->Write();
+			h_phi[i]->Write();
+			h_leadPhi[i]->Write();
+			h_subPhi[i]->Write();
+			h_PVz[i]->Write();
 
-		h_PtCut_mass->Write();
-		h_PtCut_mass_fine->Write();
-		h_PtCut_diPt->Write();
-		h_PtCut_rapi->Write();
-		h_PtCut_pT->Write();
-		h_PtCut_leadPt->Write();
-		h_PtCut_subPt->Write();
-		h_PtCut_eta->Write();
-		h_PtCut_leadEta->Write();
-		h_PtCut_subEta->Write();
-		h_PtCut_etaSC->Write();
-		h_PtCut_leadEtaSC->Write();
-		h_PtCut_subEtaSC->Write();
-		h_PtCut_phi->Write();
-		h_PtCut_leadPhi->Write();
-		h_PtCut_subPhi->Write();
-		h_PtCut_PVz->Write();
-
-		h_Zpeak_mass->Write();
-		h_Zpeak_mass_fine->Write();
-		h_Zpeak_diPt->Write();
-		h_Zpeak_rapi->Write();
-		h_Zpeak_pT->Write();
-		h_Zpeak_leadPt->Write();
-		h_Zpeak_subPt->Write();
-		h_Zpeak_eta->Write();
-		h_Zpeak_leadEta->Write();
-		h_Zpeak_subEta->Write();
-		h_Zpeak_etaSC->Write();
-		h_Zpeak_leadEtaSC->Write();
-		h_Zpeak_subEtaSC->Write();
-		h_Zpeak_phi->Write();
-		h_Zpeak_leadPhi->Write();
-		h_Zpeak_subPhi->Write();
-		h_Zpeak_PVz->Write();
-
-		h_Zpeak_PtCut_mass->Write();
-		h_Zpeak_PtCut_mass_fine->Write();
-		h_Zpeak_PtCut_diPt->Write();
-		h_Zpeak_PtCut_rapi->Write();
-		h_Zpeak_PtCut_pT->Write();
-		h_Zpeak_PtCut_leadPt->Write();
-		h_Zpeak_PtCut_subPt->Write();
-		h_Zpeak_PtCut_eta->Write();
-		h_Zpeak_PtCut_leadEta->Write();
-		h_Zpeak_PtCut_subEta->Write();
-		h_Zpeak_PtCut_etaSC->Write();
-		h_Zpeak_PtCut_leadEtaSC->Write();
-		h_Zpeak_PtCut_subEtaSC->Write();
-		h_Zpeak_PtCut_phi->Write();
-		h_Zpeak_PtCut_leadPhi->Write();
-		h_Zpeak_PtCut_subPhi->Write();
-		h_Zpeak_PtCut_PVz->Write();
-
-		h_M20to30_rapi->Write();
-		h_M30to45_rapi->Write();
-		h_M45to60_rapi->Write();
-		h_M60to120_rapi->Write();
-		h_M120to200_rapi->Write();
-		h_M200to1500_rapi->Write();
-
-		h_raw_mass_fine->Write();
-		h_raw_diPt->Write();
-		h_raw_rapi->Write();
-		h_raw_pT->Write();
-		h_raw_leadPt->Write();
-		h_raw_subPt->Write();
-		h_raw_eta->Write();
-		h_raw_leadEta->Write();
-		h_raw_subEta->Write();
-		h_raw_etaSC->Write();
-		h_raw_leadEtaSC->Write();
-		h_raw_subEtaSC->Write();
-		h_raw_phi->Write();
-		h_raw_leadPhi->Write();
-		h_raw_subPhi->Write();
-
-		h_pu_mass_fine->Write();
-		h_pu_diPt->Write();
-		h_pu_rapi->Write();
-		h_pu_pT->Write();
-		h_pu_leadPt->Write();
-		h_pu_subPt->Write();
-		h_pu_eta->Write();
-		h_pu_leadEta->Write();
-		h_pu_subEta->Write();
-		h_pu_etaSC->Write();
-		h_pu_leadEtaSC->Write();
-		h_pu_subEtaSC->Write();
-		h_pu_phi->Write();
-		h_pu_leadPhi->Write();
-		h_pu_subPhi->Write();
-
-		h_es_mass_fine->Write();
-		h_es_diPt->Write();
-		h_es_rapi->Write();
-		h_es_pT->Write();
-		h_es_leadPt->Write();
-		h_es_subPt->Write();
-		h_es_eta->Write();
-		h_es_leadEta->Write();
-		h_es_subEta->Write();
-		h_es_etaSC->Write();
-		h_es_leadEtaSC->Write();
-		h_es_subEtaSC->Write();
-		h_es_phi->Write();
-		h_es_leadPhi->Write();
-		h_es_subPhi->Write();
-
-		h_eff_mass_fine->Write();
-		h_eff_diPt->Write();
-		h_eff_rapi->Write();
-		h_eff_pT->Write();
-		h_eff_leadPt->Write();
-		h_eff_subPt->Write();
-		h_eff_eta->Write();
-		h_eff_leadEta->Write();
-		h_eff_subEta->Write();
-		h_eff_etaSC->Write();
-		h_eff_leadEtaSC->Write();
-		h_eff_subEtaSC->Write();
-		h_eff_phi->Write();
-		h_eff_leadPhi->Write();
-		h_eff_subPhi->Write();
-		h_eff_PVz->Write();
+			h_Zpeak_mass[i]->Write();
+			h_Zpeak_mass_fine[i]->Write();
+			h_Zpeak_diPt[i]->Write();
+			h_Zpeak_rapi[i]->Write();
+			h_Zpeak_pT[i]->Write();
+			h_Zpeak_leadPt[i]->Write();
+			h_Zpeak_subPt[i]->Write();
+			h_Zpeak_eta[i]->Write();
+			h_Zpeak_leadEta[i]->Write();
+			h_Zpeak_subEta[i]->Write();
+			h_Zpeak_etaSC[i]->Write();
+			h_Zpeak_leadEtaSC[i]->Write();
+			h_Zpeak_subEtaSC[i]->Write();
+			h_Zpeak_phi[i]->Write();
+			h_Zpeak_leadPhi[i]->Write();
+			h_Zpeak_subPhi[i]->Write();
+			h_Zpeak_PVz[i]->Write();
+		}
 
 		printf("\tTotal sum of weights: %.1lf\n", SumWeight);
 		printf("\tSum of weights of Seperated events: %.1lf\n", SumWeight_Separated);
