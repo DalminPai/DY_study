@@ -34,14 +34,14 @@ You need a proper package which can be downloaded from [1].<br>
 ## Energy scale correction
 It should be applied to both data and MC in electron channel.<br>
 It is already applied when ntuple was made.<br>
-If you do not use this correction, then you can use electron variables which are tagged with "UnCorr".<br>
+If you do not want to use this correction, then you can use electron variables which are tagged with "UnCorr".<br>
 * Reference
 
 	https://twiki.cern.ch/twiki/bin/view/CMS/EGMSmearer#!ECAL%20scale%20and%20resolution%20corre
 
 ## Efficiency SF
 It should be applied to MC in both channels.<br>
-You need SF root files which contains SF histogram or graph.<br>
+You need proper SF root files which contains SF histograms or graphs.<br>
 * How to use in macro
   * muon channel
 
