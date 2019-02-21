@@ -88,7 +88,7 @@ So, you can easily apply it by calling the weight from ntuple.<br>
 
 * Reference
 
-	https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1ECALPrefiringWeightRecipe
+	https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1ECALPrefiringWeightRecipe<br>
 	https://github.com/KyeongPil-Lee/NtupleMaker/tree/80X
 	http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2016_418_v10.pdf (section 13)
 
