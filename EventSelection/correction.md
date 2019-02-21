@@ -12,7 +12,7 @@ The list of corrections is as follows:<br>
 ## PU reweighting
 It should be applied to MC in both channels.<br>
 You need a root file which contains weight histogram. (The weight is as a function of number of pileup.)<br>
-* Examples in macro
+* How to use in macro
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L116
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L324-L325
@@ -21,7 +21,7 @@ You need a root file which contains weight histogram. (The weight is as a functi
 ## Rochester correction
 It should be applied to both data and MC in moun channel.<br>
 You need a proper package which can be downloaded from [1].<br>
-* Examples in macro
+* How to use in macro
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L24
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L119-L120
@@ -42,7 +42,7 @@ If you do not use this correction, then you can use electron variables which are
 ## Efficiency SF
 It should be applied to MC in both channels.<br>
 You need SF root files which contains SF histogram or graph.<br>
-* Examples in macro
+* How to use in macro
   * muon channel
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L123-L129
@@ -59,10 +59,12 @@ You need SF root files which contains SF histogram or graph.<br>
 ## PVz reweighting
 It should be applied to MC in electron channel.<br>
 You need a root file which contains weight histogram. (The weight is as a function of PVz.)<br>
-WARN: It is not a standard correction in CMS.<br>
-      It was invented by Dalmin and reported to EGM conveners via email, but it was not officially approved yet by EGM POG.<br>
-      The PVz was reweighted in MC by multiplying the ratio between data and MC in PVz distribution, which was obtained after event selection.<br>
-* Examples in macro
+
+	WARN: It is not a standard correction in CMS.
+	It was invented by Dalmin and reported to EGM conveners via email, but it was not officially approved yet by EGM POG.
+	The PVz was reweighted in MC by multiplying the ratio between data and MC in PVz distribution, which was obtained after event selection.
+
+* How to use in macro
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/EE/EE_for_validation.C#L101
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/EE/EE_for_validation.C#L315-L316
@@ -77,7 +79,7 @@ WARN: It is not a standard correction in CMS.<br>
 It should be applied to MC in both channels.<br>
 The weight was calculated and saved in ntuple when it was made.<br>
 So, you can easily apply it by calling the weight from ntuple.<br>
-* Examples in macro
+* How to use in macro
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L192
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L328-L329
@@ -90,9 +92,11 @@ So, you can easily apply it by calling the weight from ntuple.<br>
 
 ## Top pt reweighting
 It can be applied to ttbar(MC) in both channels.<br>
-The weight can be calculated using momentum of top quark, which can be called from ntuple.
-WARN: From early 2018, Dalmin has not used this correction, because an additional study for bias and uncertainty is needed.<br>
-* Examples in macro
+The weight can be calculated using momentum of top quark, which can be called from ntuple.<br>
+
+	WARN: From early 2018, Dalmin has not used this correction, because an additional study for bias and uncertainty is needed.
+
+* How to use in macro
 
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L193-L194
 	https://github.com/DalminPai/DY_study/blob/v20190221/EventSelection/MACRO/MuMu/MuMu_for_validation.C#L349-L357
