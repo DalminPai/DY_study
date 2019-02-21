@@ -1,4 +1,4 @@
-# Instructions on how to apply corrections (2016 dataset)
+# Instructions on how to apply corrections (with 2016 dataset)
 This is brief instructions on how to apply necessary corrections for 2016 dataset in DY analysis.<br>
 The list of corrections is as follows:<br>
 * PU reweighting
